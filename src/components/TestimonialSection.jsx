@@ -23,13 +23,13 @@ const Testimonial = ({ image, name, position, text }) => (
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      image: "images/Claudia Menz.png",
+      image: "images/Claudia Menz.jpg",
       name: "Claudia Menz",
       position: "Geschäftsführerin Gründerplattform",
       text: "Confias AI hat uns geholfen, unsere KI-Strategie praxisnah und rechtssicher zu definieren. Die Zusammenarbeit war effizient, kompetent und zukunftsorientiert.",
     },
     {
-      image: "images/Dennis Utter.png",
+      image: "images/Dennis Utter.jpg",
       name: "Dennis Utter",
       position: "Geschäftsführer Leading Employers",
       text: "Confias AI ist für uns ein verlässlicher Partner bei der strategischen Weiterentwicklung von datengetriebenen Geschäftsmodellen. Ihre Analysen waren präzise, ihr Vorgehen methodisch und kundenorientiert.",
