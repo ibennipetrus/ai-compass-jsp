@@ -11,12 +11,12 @@ const FAQ = () => {
     {
       question: "Müssen alle Mitarbeitenden teilnehmen?",
       answer:
-        "Ja. Der Al Act sieht vor, dass Unternehmen Ihre Mitarbeitenden sensibilisieren und schulen - besonders jene, die Ki-Systeme auswählen, anwenden oder verantworten.",
+        "Ja. Der Al Act sieht vor, dass Unternehmen Ihre Mitarbeitenden sensibilisieren und schulen - besonders jene, die KI-Systeme auswählen, anwenden oder verantworten.",
     },
     {
       question: "Wie viel Zeit muss ich einplanen?",
       answer:
-        "Insgesamt nur ca. 90 Minuten. Die Module sind flexibel abrufbar - ideal in den Arbeits- alltag integrierbar.",
+        "Insgesamt nur ca. 90 Minuten jeweils für das live Online-Modul sowie für das Self-Learning. Die Module des Self-Learnings sind flexibel abrufbar - ideal in den Arbeits- alltag integrierbar.",
     },
     {
       question: "Welche technischen Vorraussetzungen gibt es?",
@@ -31,7 +31,7 @@ const FAQ = () => {
     {
       question: "Ist die Schulung förderfähig?",
       answer:
-        "Ja. Die Teilnahme kann über das Förderprogramm des BAFA bezuschusst werden. Gerne helfen wir bei der Antragstellung",
+        "Ja. Die Schulungsmaßnahme wird über das Förderprogramm des BAFA bezuschusst. Wir übernehmen die Antragstellung auf Basis Ihrer Angaben und garantieren nachfolgend den Betrag des Zuschusses (Voraussetzung: KMU der gewerblichen Wirtschaft).",
     },
   ];
 
