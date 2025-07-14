@@ -108,18 +108,6 @@ button:focus-visible {
   cursor: pointer !important;
   transition: none !important;
 }
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 
 @media (min-width: 1024px) and (max-width: 1280px) {
   /* z.B. für MacBook-Größe */
