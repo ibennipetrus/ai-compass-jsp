@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const speakers = [
   {
     name: "Jan Schmidt-Prüfer",
-    title: "Geschäftsführer,\nConfias KI Kompasss",
+    title: "Geschäftsführer,\nConfias KI Kompass",
     image: "images/Jan.jpg",
     socials: {
       linkedin: "https://www.linkedin.com/in/janschmidt2/",
