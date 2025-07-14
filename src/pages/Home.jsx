@@ -86,7 +86,7 @@ const Home = () => {
       {/* Header mit Bild und Buttons */}
 
       <header
-        className="relative lg:h-90  bg-cover bg-center text-white py-8 lg:bg-[position:0_45%]"
+        className="relative lg:h-90  bg-cover bg-center text-white py-8 overflow-hidden lg:bg-[position:0_45%]"
         style={{
           backgroundImage: 'url("images/Background-image.png")',
           backgroundSize: "100%",
