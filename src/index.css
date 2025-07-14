@@ -7,7 +7,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--color-white);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,24 +17,32 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: white;
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
+
+.schedule {
+  color: var(--color-gray-800);
+}
+
+.schedule:hover {
+  color: var(--color-green-600);
+}
+
+.footerlinks:hover {
+  color: var(--color-green-600);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 button {
@@ -44,18 +52,62 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-gray-800);
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+button:not([class*="bg-"]) {
+  background-color: var(--color-gray-800);
+  color: white;
+}
+
+button:not([class*="hover:bg-"]):hover {
+  background-color: var(--color-green-600);
+}
+
+.buttoninvert {
+  background-color: var(--color-green-600) !important;
+}
+.buttoninvert:hover {
+  border: 1px solid var(--color-green-400);
+}
+
+.buttonfaq {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  appearance: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: black !important;
+}
+
 button:hover {
-  border-color: #646cff;
+  background-color: var(--color-green-600);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.close-btn {
+  width: 40px; /* Gleiche Breite */
+  height: 40px; /* Gleiche Höhe */
+  border-radius: 50%; /* Statt 9999px: garantiert rund */
+}
+
+/* Verhindert alle Hover-/Focus-Stile auf dem Widget-Link und allen darin enthaltenen Elementen */
+#proSealWidget button,
+#proSealWidget button:hover,
+#proSealWidget button:focus {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  cursor: pointer !important;
+  transition: none !important;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -66,5 +118,60 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  /* z.B. für MacBook-Größe */
+  .proven-widget-wrapper {
+    margin-right: 20px; /* oder was du brauchst */
+  }
+}
+
+@keyframes loop-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.loop-scroll {
+  animation: loop-scroll 100s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.perspective {
+  perspective: 1000px;
+}
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes bounce-smooth {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
