@@ -252,6 +252,7 @@ const Home = () => {
               >
                 <div className="text-3xl font-bold text-center sm:text-left">
                   1750€
+<span className="text-sm font-normal ml-2">(inkl. Förderbetrag)</span>
                 </div>
                 <div className="text-lg text-center sm:text-left">
                   bis 50 Personen inklusiv
