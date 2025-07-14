@@ -12,8 +12,8 @@ const Footer = () => {
         {/* Firmeninformationen */}
         <div className="text-sm leading-snug space-y-1">
           <p className="font-semibold">Confias AI Solutions GmbH</p>
-          <p>Beispielstraße 12</p>
-          <p>12345 Musterstadt</p>
+          <p>Lange Reihe 15</p>
+          <p>20099 Hamburg</p>
           <p>Deutschland</p>
           <p>HRB 123456 (Amtsgericht Musterstadt)</p>
           <div className="h-4" />{" "}
