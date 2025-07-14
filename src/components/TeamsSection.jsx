@@ -9,14 +9,14 @@ const TeamSection = () => {
     },
     {
       name: "Dr. Dirk Weiss",
-      role: "Gesellschafter",
+      role: "Geschäftsführer",
       description:
         "Dirk ist seit über 20 Jahren in der Top-Management-Beratung tätig, u.a. bei Roland Berger und als Gründungsgesellschafter der Beratungsfirma Maison Blanc. Seine Schwerpunkte liegen in der digitalen Transformation und der nachhaltigen Strategie. Fasziniert von den Möglichkeiten der künstlichen Intelligenz für Unternehmen, konzipiert er zukunftsweisende Geschäftsmodelle.",
       photo: "images/Dirk.jpg",
     },
     {
       name: "Dr. Marc Immenroth",
-      role: "Geschäftsführer",
+      role: "Partner",
       description:
         "Marc verbindet psychologisches mit technologischem Know-how. Als promovierter Sportpsychologe hat er sich zunächst auf den Hochleistungssport und Erwachsenenbildung spezialisiert. Es folgten fast zwei Jahrzehnte im Großkonzern mit Changemanagement und der Umsetzung von digitalen Projekten. Marc steht für essentielle Fertigkeiten einer erfolgreichen KI-Transformation.",
       photo: "images/Marc.jpg",
