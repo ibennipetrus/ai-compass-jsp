@@ -109,7 +109,7 @@ const Home = () => {
               <div className="flex gap-4 flex-wrap">
                 <button
                   onClick={openContact}
-                  className="flex items-center bg-gray-800 text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                  className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
                 >
                   <FaCheckCircle className="text-white shrink-0" />
                   <span className="text-left text-start">
