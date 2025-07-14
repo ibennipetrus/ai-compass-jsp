@@ -24,21 +24,21 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       image: "images/cropped-image.png",
-      name: "Anna Müller",
-      position: "Geschäftsführerin, Synovatec GmbH",
-      text: "Confias AI hat uns geholfen, unsere KI-Strategie praxisnah und rechtssicher umzusetzen. Die Zusammenarbeit war effizient, kompetent und zukunftsorientiert.",
+      name: "Claudia Menz",
+      position: "Geschäftsführerin Gründerplattform",
+      text: "Confias AI hat uns geholfen, unsere KI-Strategie praxisnah und rechtssicher zu definieren. Die Zusammenarbeit war effizient, kompetent und zukunftsorientiert.",
     },
     {
       image: "images/cropped-image-3.png",
-      name: "Markus Voss",
-      position: "Technischer Leiter, NeuroForge Systems AG",
-      text: "Dank Confias konnten wir unsere internen KI-Prozesse deutlich beschleunigen. Besonders beeindruckt hat mich das tiefgreifende technische Verständnis gepaart mit einem klaren Fokus auf Umsetzbarkeit.",
+      name: "Dennis Utter",
+      position: "Geschäftsführer Leading Employers",
+      text: "Confias AI ist für uns ein verlässlicher Partner bei der strategischen Weiterentwicklung von datengetriebenen Geschäftsmodellen. Ihre Analysen waren präzise, ihr Vorgehen methodisch und kundenorientiert.",
     },
     {
       image: "images/cropped-image-2.png",
-      name: "Thomas Bergmann",
-      position: "Leiter Strategie, Quantigo Analytics GmbH",
-      text: "Confias AI ist für uns ein verlässlicher Partner bei der strategischen Weiterentwicklung von datengetriebenen Geschäftsmodellen. Ihre Analysen waren präzise, ihr Vorgehen methodisch und kundenorientiert",
+      name: "Heike Tscherwinka",
+      position: "Geschäftsführerin Europäischer Verband Lifestyle (EVL)",
+      text: "Als Branchenverband war es uns wichtig, unseren Mitgliedsunternehmen fundierte und praxisnahe Orientierung zu Künstlicher Intelligenz zu geben. Der KI-Kompass hat verständliche Grundlagen mit konkreten Anwendungen vereint, Vorbehalte abgebaut und nachhaltig bei der Kompetenzentwicklung unterstützt.",
     },
   ];
 
