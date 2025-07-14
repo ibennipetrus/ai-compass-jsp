@@ -23,19 +23,19 @@ const Testimonial = ({ image, name, position, text }) => (
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      image: "images/cropped-image.png",
+      image: "images/Claudia Menz.png",
       name: "Claudia Menz",
       position: "Geschäftsführerin Gründerplattform",
       text: "Confias AI hat uns geholfen, unsere KI-Strategie praxisnah und rechtssicher zu definieren. Die Zusammenarbeit war effizient, kompetent und zukunftsorientiert.",
     },
     {
-      image: "images/cropped-image-3.png",
+      image: "images/Dennis Utter.png",
       name: "Dennis Utter",
       position: "Geschäftsführer Leading Employers",
       text: "Confias AI ist für uns ein verlässlicher Partner bei der strategischen Weiterentwicklung von datengetriebenen Geschäftsmodellen. Ihre Analysen waren präzise, ihr Vorgehen methodisch und kundenorientiert.",
     },
     {
-      image: "images/cropped-image-2.png",
+      image: "images/Heike Tscherwinka.png",
       name: "Heike Tscherwinka",
       position: "Geschäftsführerin Europäischer Verband Lifestyle (EVL)",
       text: "Als Branchenverband war es uns wichtig, unseren Mitgliedsunternehmen fundierte und praxisnahe Orientierung zu Künstlicher Intelligenz zu geben. Der KI-Kompass hat verständliche Grundlagen mit konkreten Anwendungen vereint, Vorbehalte abgebaut und nachhaltig bei der Kompetenzentwicklung unterstützt.",
