@@ -14,7 +14,7 @@ const Footer = () => {
           <p className="font-semibold">Confias AI Solutions GmbH</p>
           <p>Lange Reihe 15</p>
           <p>20099 Hamburg</p>
-          <p>Deutschland</p>
+          <p>HR B 180145 (Amtsgericht Hamburg)</p>
           <div className="h-4" />{" "}
           {/* größerer Abstand zwischen Adresse und Webdaten */}
           <p>www.confias.ai</p>
