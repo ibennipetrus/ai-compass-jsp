@@ -86,13 +86,13 @@ const Home = () => {
       {/* Header mit Bild und Buttons */}
 
       <header
-        className="relative lg:h-96   bg-cover bg-center text-white py-8 overflow-hidden lg:bg-[position:0_45%]"
+        className="relative bg-cover bg-center text-white py-4 lg:py-8 lg:bg-[position:0_45%]"
         style={{
           backgroundImage: 'url("images/Background-image.png")',
           backgroundSize: "100%",
         }}
       >
-        <Fade direction="up" triggerOnce>
+       
           <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
             {/* Textblock */}
             <div className="max-w-xl md:pr-12 lg:pr-24">
@@ -129,7 +129,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </Fade>
       </header>
 
       {/* Logo Infinite Slider */}
