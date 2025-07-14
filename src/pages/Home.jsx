@@ -121,7 +121,7 @@ const Home = () => {
                   href="https://calendly.com/confiasai/virtual_coffee_ki_kompass?month=2025-07"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center bg-gray-800 px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                  className="flex items-center bg-black px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
                 >
                   <FaCoffee className="text-white" />
                   <span>Virtueller Kaffee</span>
