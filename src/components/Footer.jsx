@@ -15,7 +15,6 @@ const Footer = () => {
           <p>Lange Reihe 15</p>
           <p>20099 Hamburg</p>
           <p>Deutschland</p>
-          <p>HRB 123456 (Amtsgericht Musterstadt)</p>
           <div className="h-4" />{" "}
           {/* größerer Abstand zwischen Adresse und Webdaten */}
           <p>www.confias.ai</p>
