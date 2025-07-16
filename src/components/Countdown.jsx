@@ -41,7 +41,7 @@ export default function Countdown() {
   }, []);
 
   return (
-    <div className="text-center text-black text-lg font-semibold whitespace-nowrap">
+    <div className="text-center text-black text-lg sm:text-base font-semibold whitespace-normal">
       {timeLeft}
     </div>
   );
