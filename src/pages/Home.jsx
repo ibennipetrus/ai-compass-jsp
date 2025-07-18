@@ -278,7 +278,7 @@ const Home = () => {
             <h2 className="text-3xl font-bold mb-6 text-center">
               Warum Sie jetzt handeln müssen
             </h2>
-            <ul className="list-disc list-inside space-y-6 text-sm text-left text-gray-600">
+            <ul className="list-disc list-outside space-y-6 text-sm text-left text-gray-600">
               <li className="">
                 EU AI Act – ab 2025 haften Unternehmen für ihren KI-Einsatz.
               </li>
