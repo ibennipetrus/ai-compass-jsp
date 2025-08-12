@@ -29,7 +29,8 @@ export default function Speakers({ className = "" }) {
       .fetch(
         `*[_type == "speakerHeadlines"][0]{
           speakersSubHeadline,
-          speakersHeadline
+          speakersHeadline,
+          visible
         }`
       )
       .then((data) => setSiteSettings(data))

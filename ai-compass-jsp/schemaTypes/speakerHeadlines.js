@@ -15,5 +15,12 @@ export default {
       type: 'string',
       description: 'Hauptüberschrift für die Speaker-Liste',
     },
+    {
+      name: 'visible',
+      title: 'Sichtbar?',
+      type: 'boolean',
+      initialValue: true,
+      description: 'Ausblenden, wenn Überschriften nicht angezeigt werden sollen',
+    },
   ],
 }

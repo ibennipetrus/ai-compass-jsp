@@ -36,6 +36,7 @@ export default {
       title: 'Sichtbar?',
       type: 'boolean',
       initialValue: true,
+      description: 'Ausblenden, wenn nicht sichtbar sein soll',
     },
   ],
 }
