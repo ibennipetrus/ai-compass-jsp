@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import FAQ from "../components/FAQ";
 import TeamSection from "../components/TeamsSection";
 import { FaCoffee, FaCheckCircle } from "react-icons/fa";
+import * as FaIcons from "react-icons/fa";
 import ContactModal from "../components/Contact";
 import Countdown from "../components/Countdown";
 import client from "../sanityClient";
