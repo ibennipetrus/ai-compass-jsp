@@ -1,5 +1,5 @@
 import { Fade } from "react-awesome-reveal";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProvenExpertWidget from "../components/ProvenExpertWidget";
 import Footer from "../components/Footer";
 import TestimonialSection from "../components/TestimonialSection";
@@ -10,6 +10,7 @@ import TeamSection from "../components/TeamsSection";
 import { FaCoffee, FaCheckCircle } from "react-icons/fa";
 import ContactModal from "../components/Contact";
 import Countdown from "../components/Countdown";
+import client from "../sanityClient";
 
 const features = [
   {
@@ -75,10 +76,25 @@ const features = [
 ];
 
 const Home = () => {
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [loadingCountdown, setLoadingCountdown] = useState(true);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openContact = () => setIsModalOpen(true);
   const closeContact = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    client
+      .fetch(`*[_type == "Countdown"][0]{ showCountdown }`)
+      .then((data) => {
+        setShowCountdown(data?.showCountdown ?? false);
+        setLoadingCountdown(false);
+      })
+      .catch(() => setLoadingCountdown(false));
+  }, []);
+
+  if (loadingCountdown) return <p>Lädt...</p>;
 
   return (
     <div className="font-sans bg-white text-gray-900 ">
@@ -92,43 +108,42 @@ const Home = () => {
           backgroundSize: "100%",
         }}
       >
-       
-          <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
-            {/* Textblock */}
-            <div className="max-w-xl md:pr-12 lg:pr-24">
-              <p className="text-sm uppercase text-green-600 tracking-wider mb-2">
-                Neue Veranstaltung 2025
-              </p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-                Rechtskonforme KI in 90 Minuten
-              </h1>
-              <p className="mb-6">
-                Bußgelder vermeiden, Klarheit schaffen, rechtliche Sicherheit
-                gewinnen
-              </p>
-              <div className="flex gap-4 flex-wrap">
-                <button
-                  onClick={openContact}
-                  className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                >
-                  <FaCheckCircle className="text-white shrink-0" />
-                  <span className="text-left text-start">
-                    Jetzt Schulung sichern
-                  </span>
-                </button>
+        <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+          {/* Textblock */}
+          <div className="max-w-xl md:pr-12 lg:pr-24">
+            <p className="text-sm uppercase text-green-600 tracking-wider mb-2">
+              Neue Veranstaltung 2025
+            </p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+              Rechtskonforme KI in 90 Minuten
+            </h1>
+            <p className="mb-6">
+              Bußgelder vermeiden, Klarheit schaffen, rechtliche Sicherheit
+              gewinnen
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              <button
+                onClick={openContact}
+                className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+              >
+                <FaCheckCircle className="text-white shrink-0" />
+                <span className="text-left text-start">
+                  Jetzt Schulung sichern
+                </span>
+              </button>
 
-                <a
-                  href="https://calendly.com/confiasai/virtual_coffee_ki_kompass?month=2025-07"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center bg-black px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                >
-                  <FaCoffee className="text-white" />
-                  <span>Virtueller Kaffee</span>
-                </a>
-              </div>
+              <a
+                href="https://calendly.com/confiasai/virtual_coffee_ki_kompass?month=2025-07"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center bg-black px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+              >
+                <FaCoffee className="text-white" />
+                <span>Virtueller Kaffee</span>
+              </a>
             </div>
           </div>
+        </div>
       </header>
 
       {/* Logo Infinite Slider */}
@@ -166,9 +181,11 @@ const Home = () => {
               </div>
 
               {/* Countdown */}
-              <div className="mt-4 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex items-center justify-center min-h-[120px]">
-                <Countdown />
-              </div>
+              {showCountdown && (
+                <div className="mt-4 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex items-center justify-center min-h-[120px]">
+                  <Countdown />
+                </div>
+              )}
             </div>
 
             {/* Column 2: Benefits (3 rows) */}
@@ -251,7 +268,9 @@ const Home = () => {
               >
                 <div className="text-3xl font-bold text-center sm:text-left">
                   1750€
-<span className="text-sm font-normal ml-2">(inkl. Förderbetrag)</span>
+                  <span className="text-sm font-normal ml-2">
+                    (inkl. Förderbetrag)
+                  </span>
                 </div>
                 <div className="text-lg text-center sm:text-left">
                   bis 50 Personen inklusiv
