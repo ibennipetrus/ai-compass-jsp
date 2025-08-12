@@ -80,12 +80,16 @@ export default function Speakers({ className = "" }) {
   return (
     <div className={className + " px-4 lg:px-0"}>
       <div className="text-center">
-        <h2 className="text-gray-600 text-sm uppercase tracking-wider mb-1 py-12 lg:py-0">
-          {siteSettings?.speakersSubHeadline || "Schulungspersonal"}
-        </h2>
-        <h3 className="text-2xl font-bold mb-4">
-          {siteSettings?.speakersHeadline || "Unsere Redner"}
-        </h3>
+        {siteSettings?.visible !== false && (
+          <>
+            <h2 className="text-gray-600 text-sm uppercase tracking-wider mb-1 py-12 lg:py-0">
+              {siteSettings?.subHeadline || "Schulungspersonal"}
+            </h2>
+            <h3 className="text-2xl font-bold mb-4">
+              {siteSettings?.mainHeadline || "Unsere Redner"}
+            </h3>
+          </>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
           {speakers.map((speaker, idx) => (
             <div key={idx} className="flex flex-col items-center relative">
