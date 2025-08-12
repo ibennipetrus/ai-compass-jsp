@@ -78,12 +78,15 @@ const features = [
 const Home = () => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [loadingCountdown, setLoadingCountdown] = useState(true);
+  const [content, setContent] = useState(null);
+  const [loadingContent, setLoadingContent] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openContact = () => setIsModalOpen(true);
   const closeContact = () => setIsModalOpen(false);
 
+  // Countdown aus Sanity laden
   useEffect(() => {
     client
       .fetch(`*[_type == "Countdown"][0]{ showCountdown }`)
@@ -94,7 +97,30 @@ const Home = () => {
       .catch(() => setLoadingCountdown(false));
   }, []);
 
-  if (loadingCountdown) return <p>Lädt...</p>;
+  // Header-Texte aus Sanity laden
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "homePage"][0]{
+          headerSubtitle,
+          headerTitle,
+          headerText
+        }`
+      )
+      .then((data) => {
+        setContent(data || {});
+        setLoadingContent(false);
+      })
+      .catch((err) => {
+        console.error("Sanity fetch error:", err);
+        setLoadingContent(false);
+      });
+  }, []);
+
+  // Wenn einer der beiden noch lädt → Ladeanzeige
+  if (loadingCountdown || loadingContent) {
+    return <p>Lädt...</p>;
+  }
 
   return (
     <div className="font-sans bg-white text-gray-900 ">
@@ -112,15 +138,12 @@ const Home = () => {
           {/* Textblock */}
           <div className="max-w-xl md:pr-12 lg:pr-24">
             <p className="text-sm uppercase text-green-600 tracking-wider mb-2">
-              Neue Veranstaltung 2025
+              {content.headerSubtitle}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-              Rechtskonforme KI in 90 Minuten
+              {content.headerTitle}
             </h1>
-            <p className="mb-6">
-              Bußgelder vermeiden, Klarheit schaffen, rechtliche Sicherheit
-              gewinnen
-            </p>
+            <p className="mb-6">{content.headerText}</p>
             <div className="flex gap-4 flex-wrap">
               <button
                 onClick={openContact}
