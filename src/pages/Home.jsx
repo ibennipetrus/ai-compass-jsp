@@ -101,7 +101,7 @@ const Home = () => {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "Header"][0]{
+        `*[_type == "Homepage"][0]{
       headerSubtitle,
       headerTitle,
       headerText,

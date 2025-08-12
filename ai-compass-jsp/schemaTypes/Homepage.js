@@ -1,23 +1,31 @@
 export default {
-  name: 'Header',
-  title: 'Header',
+  name: 'Homepage',
+  title: 'Homepage',
   type: 'document',
+  fieldsets: [
+    {name: 'header', title: 'Header-Bereich', options: {collapsible: true, collapsed: false}},
+    {name: 'benefits', title: 'Benefits', options: {collapsible: true, collapsed: true}},
+    {name: 'faq', title: 'FAQ', options: {collapsible: true, collapsed: true}},
+  ],
   fields: [
     // === HEADER ===
     {
       name: 'headerSubtitle',
       title: 'Header Untertitel',
       type: 'string',
+      fieldset: 'header',
     },
     {
       name: 'headerTitle',
       title: 'Header Titel',
       type: 'string',
+      fieldset: 'header',
     },
     {
       name: 'headerText',
       title: 'Header Beschreibung',
       type: 'text',
+      fieldset: 'header',
     },
     {
       name: 'buttons',
@@ -55,6 +63,7 @@ export default {
           ],
         },
       ],
+      fieldset: 'header',
     },
 
     // === GRID-BEREICH ===
@@ -80,4 +89,12 @@ export default {
       ],
     },
   ],
+
+  preview: {
+    prepare() {
+      return {
+        title: 'Homepage', // statischer Titel im Studio oben und in der Liste
+      }
+    },
+  },
 }
