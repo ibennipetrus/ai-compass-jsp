@@ -1,4 +1,4 @@
-import siteSettings from './siteSettings'
 import speaker from './speaker'
+import speakerHeadlines from './speakerHeadlines'
 
-export const schemaTypes = [speaker, siteSettings]
+export const schemaTypes = [speaker, speakerHeadlines]

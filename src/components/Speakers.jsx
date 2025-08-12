@@ -5,7 +5,7 @@ import client, { urlFor } from "../sanityClient";
 
 export default function Speakers({ className = "" }) {
   const [speakers, setSpeakers] = useState([]);
-  const [siteSettings, setSiteSettings] = useState(null);
+  const [speakerHeadlines, setSpeakerHeadlines] = useState(null);
 
   useEffect(() => {
     client
@@ -27,14 +27,16 @@ export default function Speakers({ className = "" }) {
 
     client
       .fetch(
-        `*[_type == "siteSettings"][0]{
-          speakersSubHeadline,
-          speakersHeadline
+        `*[_type == "speakerHeadlines"][0]{ 
+        subHeadline, 
+        mainHeadline 
         }`
       )
-      .then((data) => setSiteSettings(data))
-      .catch(() => {
-        console.warn("siteSettings nicht gefunden");
+      .then((data) => {
+        setSpeakerHeadlines(data);
+      })
+      .catch((err) => {
+        console.warn("Sanity fetch error:", err);
       });
   }, []);
 

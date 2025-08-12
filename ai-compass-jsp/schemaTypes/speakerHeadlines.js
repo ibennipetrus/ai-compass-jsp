@@ -1,17 +1,17 @@
 export default {
-  name: 'siteSettings',
-  title: 'Website Einstellungen',
+  name: 'speakerHeadlines',
+  title: 'Speaker Headlines',
   type: 'document',
   fields: [
     {
-      name: 'speakersSubHeadline',
+      name: 'subHeadline',
       title: 'Schulungspersonal (Subheadline)',
       type: 'string',
       description: 'Überschrift für Schulungspersonal',
     },
     {
-      name: 'speakersHeadline',
-      title: 'Unsere Redner (Headline)',
+      name: 'mainHeadline',
+      title: 'Unsere Redner (Hauptheadline)',
       type: 'string',
       description: 'Hauptüberschrift für die Speaker-Liste',
     },
