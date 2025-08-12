@@ -5,25 +5,36 @@ import client, { urlFor } from "../sanityClient";
 
 export default function Speakers({ className = "" }) {
   const [speakers, setSpeakers] = useState([]);
+  const [siteSettings, setSiteSettings] = useState(null);
 
   useEffect(() => {
-    client;
     client
       .fetch(
         `*[_type == "speaker"]{
-    name,
-    title,
-    linkedin,
-    email,
-      "imageUrl": image.asset->url
-  }`
+          name,
+          title,
+          linkedin,
+          email,
+          "imageUrl": image.asset->url
+        }`
       )
       .then((data) => {
-        console.log("Sanity Daten:", data);
         setSpeakers(data);
       })
       .catch((err) => {
         console.error("Sanity fetch error:", err);
+      });
+
+    client
+      .fetch(
+        `*[_type == "siteSettings"][0]{
+          speakersSubHeadline,
+          speakersHeadline
+        }`
+      )
+      .then((data) => setSiteSettings(data))
+      .catch(() => {
+        console.warn("siteSettings nicht gefunden");
       });
   }, []);
 
@@ -69,9 +80,11 @@ export default function Speakers({ className = "" }) {
     <div className={className + " px-4 lg:px-0"}>
       <div className="text-center">
         <h2 className="text-gray-600 text-sm uppercase tracking-wider mb-1 py-12 lg:py-0">
-          Schulungspersonal
+          {siteSettings?.speakersSubHeadline || "Schulungspersonal"}
         </h2>
-        <h3 className="text-2xl font-bold mb-4">Unsere Redner</h3>
+        <h3 className="text-2xl font-bold mb-4">
+          {siteSettings?.speakersHeadline || "Unsere Redner"}
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
           {speakers.map((speaker, idx) => (
             <div key={idx} className="flex flex-col items-center relative">
