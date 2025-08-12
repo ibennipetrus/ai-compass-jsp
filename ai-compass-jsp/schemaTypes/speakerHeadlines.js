@@ -4,13 +4,13 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'subHeadline',
+      name: 'speakersSubHeadline',
       title: 'Schulungspersonal (Subheadline)',
       type: 'string',
       description: 'Überschrift für Schulungspersonal',
     },
     {
-      name: 'mainHeadline',
+      name: 'speakersHeadline',
       title: 'Unsere Redner (Hauptheadline)',
       type: 'string',
       description: 'Hauptüberschrift für die Speaker-Liste',

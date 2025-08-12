@@ -10,7 +10,7 @@ export default function Speakers({ className = "" }) {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "speaker"]{
+        `*[_type == "speaker" && visible == true]{
           name,
           title,
           linkedin,

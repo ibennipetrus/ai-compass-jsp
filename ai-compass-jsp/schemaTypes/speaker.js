@@ -11,7 +11,7 @@ export default {
     {
       name: 'title',
       title: 'Titel',
-      type: 'text', // Hier von 'string' auf 'text' geändert
+      type: 'text',
     },
     {
       name: 'image',
@@ -30,6 +30,12 @@ export default {
       name: 'email',
       title: 'E-Mail',
       type: 'string',
+    },
+    {
+      name: 'visible',
+      title: 'Sichtbar?',
+      type: 'boolean',
+      initialValue: true,
     },
   ],
 }
