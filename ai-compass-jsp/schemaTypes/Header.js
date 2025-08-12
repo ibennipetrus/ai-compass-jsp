@@ -28,25 +28,30 @@ export default {
           type: 'object',
           fields: [
             {name: 'label', title: 'Button Text', type: 'string'},
-            {name: 'link', title: 'Link / Aktion', type: 'url'},
             {
               name: 'actionType',
               title: 'Aktionstyp',
               type: 'string',
-              options: {list: ['link', 'modal']},
+              options: {list: ['link', 'modal', 'download']},
               initialValue: 'link',
             },
+            {name: 'link', title: 'Link / Aktion', type: 'url'}, // für actionType "link"
+            {
+              name: 'file',
+              title: 'Datei (für Download)',
+              type: 'file',
+              options: {accept: 'application/pdf'},
+            }, // für actionType "download"
             {
               name: 'iconName',
               title: 'Icon Name',
               type: 'string',
               options: {
-                list: ['FaCheckCircle', 'FaCoffee'],
+                list: ['FaCheckCircle', 'FaCoffee', 'FaDownload'],
                 layout: 'dropdown',
               },
             },
             {name: 'visible', title: 'Sichtbar?', type: 'boolean', initialValue: true},
-            {name: 'isDownload', title: 'Download Button?', type: 'boolean', initialValue: false},
           ],
         },
       ],

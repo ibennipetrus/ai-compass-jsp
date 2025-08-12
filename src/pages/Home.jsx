@@ -7,7 +7,6 @@ import Speakers from "../components/Speakers";
 import { Toaster } from "react-hot-toast";
 import FAQ from "../components/FAQ";
 import TeamSection from "../components/TeamsSection";
-import { FaCoffee, FaCheckCircle } from "react-icons/fa";
 import * as FaIcons from "react-icons/fa";
 import ContactModal from "../components/Contact";
 import Countdown from "../components/Countdown";
@@ -102,14 +101,27 @@ const Home = () => {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "homePage"][0]{
-          headerSubtitle,
-          headerTitle,
-          headerText,
-          buttons,
-        }`
+        `*[_type == "Header"][0]{
+      headerSubtitle,
+      headerTitle,
+      headerText,
+      buttons[]{
+        label,
+        actionType,
+        link,
+        iconName,
+        visible,
+        file{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }`
       )
       .then((data) => {
+        console.log("Sanity Header data:", data);
         setContent(data || {});
         setLoadingContent(false);
       })
@@ -168,13 +180,31 @@ const Home = () => {
                     );
                   }
 
+                  if (btn.actionType === "download" && btn.file?.asset?.url) {
+                    return (
+                      <a
+                        key={idx}
+                        href={btn.file.asset.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        download={false}
+                      >
+                        {IconComponent && (
+                          <IconComponent className="text-white shrink-0" />
+                        )}
+                        <span>{btn.label}</span>
+                      </a>
+                    );
+                  }
+
+                  // Default: Link
                   return (
                     <a
                       key={idx}
                       href={btn.link}
-                      target={btn.isDownload ? "_self" : "_blank"}
+                      target="_blank"
                       rel="noopener noreferrer"
-                      download={btn.isDownload}
                       className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
                     >
                       {IconComponent && (
