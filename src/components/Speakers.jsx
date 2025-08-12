@@ -114,7 +114,7 @@ export default function Speakers({ className = "" }) {
                 </div>
               </div>
               <div className="text-lg font-semibold mt-4">{speaker.name}</div>
-              <div className="text-sm text-gray-500 whitespace-pre-line">
+              <div className="text-sm text-gray-500 style={{ whiteSpace: 'pre-line'">
                 {speaker.title}
               </div>
             </div>

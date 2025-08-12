@@ -11,7 +11,7 @@ export default {
     {
       name: 'title',
       title: 'Titel',
-      type: 'string',
+      type: 'text', // Hier von 'string' auf 'text' geändert
     },
     {
       name: 'image',
