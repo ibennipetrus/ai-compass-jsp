@@ -1,6 +1,6 @@
 import Countdown from './Countdown'
 import speaker from './speaker'
 import speakerHeadlines from './speakerHeadlines'
-import Homepage from './Homepage'
+import Header from './Header'
 
-export const schemaTypes = [speaker, speakerHeadlines, Countdown, Homepage]
+export const schemaTypes = [speaker, speakerHeadlines, Countdown, Header]

@@ -1,6 +1,6 @@
 export default {
-  name: 'homePage',
-  title: 'Home Page',
+  name: 'Header',
+  title: 'Header',
   type: 'document',
   fields: [
     // === HEADER ===
@@ -29,6 +29,22 @@ export default {
           fields: [
             {name: 'label', title: 'Button Text', type: 'string'},
             {name: 'link', title: 'Link / Aktion', type: 'url'},
+            {
+              name: 'actionType',
+              title: 'Aktionstyp',
+              type: 'string',
+              options: {list: ['link', 'modal']},
+              initialValue: 'link',
+            },
+            {
+              name: 'iconName',
+              title: 'Icon Name',
+              type: 'string',
+              options: {
+                list: ['FaCheckCircle', 'FaCoffee'],
+                layout: 'dropdown',
+              },
+            },
             {name: 'visible', title: 'Sichtbar?', type: 'boolean', initialValue: true},
             {name: 'isDownload', title: 'Download Button?', type: 'boolean', initialValue: false},
           ],

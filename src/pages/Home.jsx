@@ -104,7 +104,8 @@ const Home = () => {
         `*[_type == "homePage"][0]{
           headerSubtitle,
           headerTitle,
-          headerText
+          headerText,
+          buttons,
         }`
       )
       .then((data) => {
@@ -144,26 +145,44 @@ const Home = () => {
               {content.headerTitle}
             </h1>
             <p className="mb-6">{content.headerText}</p>
-            <div className="flex gap-4 flex-wrap">
-              <button
-                onClick={openContact}
-                className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-              >
-                <FaCheckCircle className="text-white shrink-0" />
-                <span className="text-left text-start">
-                  Jetzt Schulung sichern
-                </span>
-              </button>
 
-              <a
-                href="https://calendly.com/confiasai/virtual_coffee_ki_kompass?month=2025-07"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center bg-black px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-              >
-                <FaCoffee className="text-white" />
-                <span>Virtueller Kaffee</span>
-              </a>
+            <div className="flex gap-4 flex-wrap">
+              {content.buttons
+                ?.filter((b) => b.visible)
+                .map((btn, idx) => {
+                  const IconComponent = FaIcons[btn.iconName] || null;
+
+                  if (btn.actionType === "modal") {
+                    return (
+                      <button
+                        key={idx}
+                        onClick={openContact}
+                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                      >
+                        {IconComponent && (
+                          <IconComponent className="text-white shrink-0" />
+                        )}
+                        <span>{btn.label}</span>
+                      </button>
+                    );
+                  }
+
+                  return (
+                    <a
+                      key={idx}
+                      href={btn.link}
+                      target={btn.isDownload ? "_self" : "_blank"}
+                      rel="noopener noreferrer"
+                      download={btn.isDownload}
+                      className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                    >
+                      {IconComponent && (
+                        <IconComponent className="text-white shrink-0" />
+                      )}
+                      <span>{btn.label}</span>
+                    </a>
+                  );
+                })}
             </div>
           </div>
         </div>
