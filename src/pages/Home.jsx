@@ -10,70 +10,55 @@ import TeamSection from "../components/TeamsSection";
 import * as FaIcons from "react-icons/fa";
 import ContactModal from "../components/Contact";
 import Countdown from "../components/Countdown";
-import client from "../sanityClient";
+import client, { urlFor } from "../sanityClient";
 
-const features = [
-  {
-    title: "Live Training",
-    description:
-      "90 Minuten KI-Grundlagen für das ganze Team. Interaktive Sessions mit Experten – direkt und in Echtzeit.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15 10.5V6.75A2.25 2.25 0 0012.75 4.5h-9A2.25 2.25 0 001.5 6.75v10.5A2.25 2.25 0 003.75 19.5h9A2.25 2.25 0 0015 17.25v-3.75m0 0l3.75 3.75M15 13.5l3.75-3.75"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Self Learning",
-    description:
-      "Modulares Selbstlernpaket je Mitarbeitenden. Lerne flexibel im eigenen Tempo mit hochwertigen Kursinhalten",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 3a6.75 6.75 0 016.75 6.75c0 2.455-1.313 3.74-2.25 4.537A2.25 2.25 0 0015 16.5v.75A2.25 2.25 0 0112.75 19.5h-1.5A2.25 2.25 0 019 17.25v-.75a2.25 2.25 0 00-1.5-2.213C6.563 13.49 5.25 12.205 5.25 9.75A6.75 6.75 0 0112 3z"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Certification",
-    description:
-      "Teilnahmebestätigung / Zertifikat. Erhalte ein anerkanntes Zertifikat nach erfolgreichem Abschluss.",
-    icon: (
-      <svg
-        className="w-6 h-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.59 14.37a5.25 5.25 0 10-7.18 0M9.75 17.25l-1.5 4.5 3-2.25 3 2.25-1.5-4.5"
-        />
-      </svg>
-    ),
-  },
-];
+const iconMap = {
+  training: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15 10.5V6.75A2.25 2.25 0 0012.75 4.5h-9A2.25 2.25 0 001.5 6.75v10.5A2.25 2.25 0 003.75 19.5h9A2.25 2.25 0 0015 17.25v-3.75m0 0l3.75 3.75M15 13.5l3.75-3.75"
+      />
+    </svg>
+  ),
+  selfLearning: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3a6.75 6.75 0 016.75 6.75c0 2.455-1.313 3.74-2.25 4.537A2.25 2.25 0 0015 16.5v.75A2.25 2.25 0 0112.75 19.5h-1.5A2.25 2.25 0 019 17.25v-.75a2.25 2.25 0 00-1.5-2.213C6.563 13.49 5.25 12.205 5.25 9.75A6.75 6.75 0 0112 3z"
+      />
+    </svg>
+  ),
+  certification: (
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.59 14.37a5.25 5.25 0 10-7.18 0M9.75 17.25l-1.5 4.5 3-2.25 3 2.25-1.5-4.5"
+      />
+    </svg>
+  ),
+};
 
 const Home = () => {
   const [showCountdown, setShowCountdown] = useState(false);
@@ -117,7 +102,67 @@ const Home = () => {
             url
           }
         }
+      },
+      mainImage,
+      mainImageVisible,
+  benefits[] {
+    title,
+    description,
+    visible
+  },
+         priceBox {
+    mainPrice,
+    inlineSubText,
+    belowText
+  },
+  gridButton {
+    label,
+    actionType,
+    link,
+    iconName,
+    visible,
+    file {
+      asset->{
+        _id,
+        url
       }
+    }
+  },
+    provenExpertVisible,
+    whyAct,
+    benefitsHeaderH3,
+    benefitsHeaderH2,
+    benefitsVisible,
+    benefitsList[]{
+      iconName,
+      title,
+      description,
+      visible
+    },
+    whyConfias,
+trainingRows[] {
+visible,
+  columns[] {
+    background,
+    items[] {
+      type,
+      text
+    },
+    button {
+      label,
+      actionType,
+      link,
+      iconName,
+      visible,
+      file {
+        asset-> {
+          _id,
+          url
+        }
+      }
+    }
+  }
+}
     }`
       )
       .then((data) => {
@@ -245,13 +290,15 @@ const Home = () => {
             {/* Column 1: Großes Bild (2 rows) */}
             <div className="lg:col-start-1 col-span-1 row-span-3 flex flex-col">
               {/* Bild */}
-              <div className="flex-shrink-0">
-                <img
-                  src="images/KI Online-Training Plattform Übersicht.png"
-                  alt="Großes Bild"
-                  className="w-full h-auto object-contain shadow-lg hover:shadow-xl transition rounded-lg"
-                />
-              </div>
+              {content.mainImageVisible && content.mainImage && (
+                <div className="flex-shrink-0">
+                  <img
+                    src={urlFor(content.mainImage).url()}
+                    alt="Großes Bild"
+                    className="w-full h-auto object-contain shadow-lg hover:shadow-xl transition rounded-lg"
+                  />
+                </div>
+              )}
 
               {/* Countdown */}
               {showCountdown && (
@@ -262,158 +309,159 @@ const Home = () => {
             </div>
 
             {/* Column 2: Benefits (3 rows) */}
-            <div className="lg:col-start-2 col-span-1 row-span-1 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center">
-              {/* Benefit 1 */}
-              <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
+            {content.benefits
+              ?.filter((b) => b.visible)
+              .map((benefit, idx) => (
+                <div
+                  key={idx}
+                  className="lg:col-start-2 col-span-1 row-span-1 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-lg mb-2">Gesetzeskonform</h4>
-              <p className="text-sm text-gray-600">
-                Pflichtschulung (90Min) für alle Mitarbeitenden.
-              </p>
-            </div>
-
-            <div className="lg:col-start-2 col-span-1 row-span-1 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center">
-              {/* Benefit 2 */}
-              <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-lg mb-2">
-                Zertifikat inklusive
-              </h4>
-              <p className="text-sm text-gray-600">Auditfähig und förderbar</p>
-            </div>
-
-            <div className="lg:col-start-2 col-span-1 row-span-1 bg-white shadow-lg hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center">
-              {/* Benefit 3 */}
-              <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <h4 className="font-semibold text-lg mb-2">
-                Inklusive Förderbetrag
-              </h4>
-            </div>
+                  <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">
+                    {benefit.title}
+                  </h4>
+                  {benefit.description && (
+                    <p className="text-sm text-gray-600">
+                      {benefit.description}
+                    </p>
+                  )}
+                </div>
+              ))}
 
             {/* Column 3: Team (2 rows) */}
             <Speakers className="lg:col-start-3 lg:row-start-1 col-span-1 row-span-2" />
 
             {/* Column 3: Button (1 row) */}
             <div className="lg:col-start-3 lg:row-start-3 col-span-1 row-span-1 flex justify-center">
-              <div
-                className="w-full max-w-md bg-gray-800 text-white py-6 px-6 rounded-2xl shadow-lg 
-    flex flex-col space-y-4 sm:space-y-2"
-              >
-                <div className="text-3xl font-bold text-center sm:text-left">
-                  1750€
-                  <span className="text-sm font-normal ml-2">
-                    (inkl. Förderbetrag)
-                  </span>
+              {content.gridButton?.visible && (
+                <div className="w-full max-w-md bg-gray-800 text-white py-6 px-6 rounded-2xl shadow-lg flex flex-col space-y-4 sm:space-y-2">
+                  <div className="text-3xl font-bold text-center sm:text-left">
+                    {content.priceBox?.mainPrice}
+                    <span className="text-sm font-normal ml-2">
+                      {content.priceBox?.inlineSubText}
+                    </span>
+                  </div>
+                  <div className="text-lg text-center sm:text-left">
+                    {content.priceBox?.belowText}
+                  </div>
+                  {/* Button hier rein */}
+                  {(() => {
+                    const btn = content.gridButton;
+                    const IconComponent = FaIcons[btn.iconName] || null;
+
+                    if (btn.actionType === "modal") {
+                      return (
+                        <button
+                          onClick={openContact}
+                          className="buttoninvert text-white px-6 py-3 w-full"
+                        >
+                          {IconComponent && (
+                            <IconComponent className="inline mr-2" />
+                          )}
+                          {btn.label}
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <a
+                        href={
+                          btn.actionType === "download" && btn.file?.asset?.url
+                            ? btn.file.asset.url
+                            : btn.link
+                        }
+                        download={btn.actionType === "download"}
+                        target={btn.actionType === "link" ? "_blank" : "_self"}
+                        rel="noopener noreferrer"
+                        className="buttoninvert text-white px-6 py-3 w-full inline-flex items-center justify-center"
+                      >
+                        {IconComponent && (
+                          <IconComponent className="inline mr-2" />
+                        )}
+                        {btn.label}
+                      </a>
+                    );
+                  })()}
                 </div>
-                <div className="text-lg text-center sm:text-left">
-                  bis 50 Personen inklusiv
-                </div>
-                <button
-                  onClick={openContact}
-                  className="buttoninvert text-white px-6 py-3 w-full"
-                >
-                  Schulung sichern
-                </button>
+              )}
+            </div>
+            {/* Column 4: ProvenExpertWidget (3 rows) */}
+            {content.provenExpertVisible && (
+              <div className="lg:col-start-4 lg:row-start-1 col-span-1 row-span-3 flex items-start justify-center lg:justify-start mt-8 ml-4">
+                <ProvenExpertWidget />
               </div>
-            </div>
-            {/* Column 1: ProvenExpertWidget (3 rows) */}
-            <div className="lg:col-start-4 lg:row-start-1 col-span-1 row-span-3 flex items-start justify-center lg:justify-start mt-8 ml-4">
-              <ProvenExpertWidget />
-            </div>
+            )}
           </div>
         </section>
       </Fade>
 
+      {/* Warum handeln */}
       <Fade direction="up" delay={200} triggerOnce>
-        <section className="bg-white  py-8">
-          <div className="w-9/10 lg:max-w-[30%] mx-auto bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition">
-            <h2 className="text-3xl font-bold mb-6 text-center">
-              Warum Sie jetzt handeln müssen
-            </h2>
-            <ul className="list-disc list-outside space-y-6 text-sm text-left text-gray-600">
-              <li className="">
-                EU AI Act – ab 2025 haften Unternehmen für ihren KI-Einsatz.
-              </li>
-              <li>
-                Bei Verstößen drohen Bußgelder von bis zu 3% des Umsatzes.
-              </li>
-              <li>
-                8 von 10 Mittelständlern nutzen bereits KI – oft ohne rechtliche
-                Prüfung.
-              </li>
-              <li>
-                Die Herausforderung: Anforderungen verstehen und umsetzen.
-              </li>
-            </ul>
-          </div>
-        </section>
+        {content.whyAct?.visible && (
+          <section className="bg-white py-8">
+            <div className="w-9/10 lg:max-w-[30%] mx-auto bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition">
+              <h2 className="text-3xl font-bold mb-6 text-center">
+                {content.whyAct.headline}
+              </h2>
+              <ul className="list-disc list-outside space-y-6 text-sm text-left text-gray-600">
+                {content.whyAct.items?.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
       </Fade>
 
       {/* Benefits */}
       <Fade direction="up" delay={200} triggerOnce>
-        <section className="bg-white py-8">
-          <div className="text-center mb-10">
-            <h3 className="text-gray-600 text-sm uppercase tracking-widest">
-              Benefits
-            </h3>
-            <h2 className="text-3xl font-bold mt-2">Das bekommen Sie</h2>
-          </div>
+        {content.benefitsVisible !== false && (
+          <section className="bg-white py-8">
+            <div className="text-center mb-10">
+              <h3 className="text-gray-600 text-sm uppercase tracking-widest">
+                {content.benefitsHeaderH3 || "Benefits"}
+              </h3>
+              <h2 className="text-3xl font-bold mt-2">
+                {content.benefitsHeaderH2 || "Das bekommen Sie"}
+              </h2>
+            </div>
 
-          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
-              <div
-                key={i}
-                className="bg-gray-50 shadow-md hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center"
-              >
-                <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
-                  {feature.icon}
-                </div>
-                <h4 className="font-semibold text-lg mb-2">{feature.title}</h4>
-                <p className="text-sm text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+            <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {content.benefitsList
+                ?.filter((item) => item.visible !== false)
+                .map((feature, i) => (
+                  <div
+                    key={i}
+                    className="bg-gray-50 shadow-md hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center"
+                  >
+                    <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
+                      {iconMap[feature.iconName] || null}
+                    </div>
+                    <h4 className="font-semibold text-lg mb-2">
+                      {feature.title}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {feature.description}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </section>
+        )}
       </Fade>
 
       {/* Image Grid */}
@@ -466,23 +514,25 @@ const Home = () => {
         </section>
       </Fade>
 
+      {/* Why Confias */}
       <Fade direction="up" delay={200} triggerOnce>
-        <section className="bg-white  py-8">
-          <div className="w-9/10 lg:max-w-5xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition">
-            <h2 className="text-3xl font-bold mb-6 text-center">
-              Warum Confias? Und warum jetzt?
-            </h2>
-            <ul className="list-disc list-inside space-y-6 text-sm text-left text-gray-600">
-              <li className="">
-                Vermeiden Sie Bußgelder bis zu 3 % des Umsatzes
-              </li>
-              <li>Geben Sie Ihrem Team einen breiten Einblick in KI.</li>
-              <li>Profitieren Sie von einem bewährten Konzept</li>
-            </ul>
-          </div>
-        </section>
+        {content.whyConfias?.visible && (
+          <section className="bg-white py-8">
+            <div className="w-9/10 lg:max-w-5xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+              <h2 className="text-3xl font-bold mb-6 text-center">
+                {content.whyConfias.headline}
+              </h2>
+              <ul className="list-disc list-inside space-y-6 text-sm text-left text-gray-600">
+                {content.whyConfias.points.map((point, i) => (
+                  <li key={i}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
       </Fade>
 
+      {/* Testimonials */}
       <Fade direction="up" delay={200} triggerOnce>
         <section className="bg-white py-8">
           <div className="w-11/12 lg:w-3/4 mx-auto">
@@ -493,109 +543,99 @@ const Home = () => {
 
       {/* Termin buchen */}
       <Fade direction="up" delay={200} triggerOnce>
-        <section className="max-w-7xl mx-auto px-6 py-16">
-          <div
-            className="grid lg:grid-cols-3 gap-8"
-            style={{ gridTemplateRows: "repeat(2, minmax(150px, auto))" }}
-          >
-            {/* Erste Reihe */}
-            <div className="p-6 rounded-lg transition hover:shadow-xl cursor-pointer">
-              <h3 className="text-lg font-semibold mb-1 text-gray-800 whitespace-pre-line">
-                ➔ Alle Hierarchiestufen und Abteilungen{"\n"}➔ Einheitliche
-                Grundlagen statt Insellösungen{"\n"}➔ Ängste abbauen, produktive
-                Nutzung fördern{"\n"}➔ Eigene, unkontrollierte KI-Tools
-                vermeiden
-              </h3>
-            </div>
+        {content.trainingRows.map((row, rowIndex) =>
+          row.visible !== false ? (
+            <section key={rowIndex} className="max-w-7xl mx-auto px-6 py-4">
+              <div
+                className="grid lg:grid-cols-3 gap-8"
+                style={{ gridAutoRows: "minmax(150px, auto)" }}
+              >
+                {row.columns.map((col, colIndex) => {
+                  const bgClass = col.background === "gray" ? "bg-gray-50" : "";
+                  return (
+                    <div
+                      key={colIndex}
+                      className={`${bgClass} p-6 rounded-lg transition hover:shadow-xl cursor-pointer`}
+                    >
+                      {col.items.map((item, i) => {
+                        if (item.type === "h2")
+                          return (
+                            <h2
+                              key={i}
+                              className="text-2xl font-bold mb-1 text-gray-800 whitespace-pre-line"
+                            >
+                              {item.text}
+                            </h2>
+                          );
+                        if (item.type === "h3")
+                          return (
+                            <h3
+                              key={i}
+                              className="text-lg font-semibold mb-3 text-green-600 whitespace-pre-line"
+                            >
+                              {item.text}
+                            </h3>
+                          );
+                        if (item.type === "paragraph")
+                          return (
+                            <p
+                              key={i}
+                              className="text-gray-700 whitespace-pre-line"
+                            >
+                              {item.text}
+                            </p>
+                          );
+                        return null;
+                      })}
 
-            <div className="p-6 rounded-lg shadow-md transition hover:shadow-xl cursor-pointer bg-gray-50">
-              <h2 className="text-2xl font-bold mb-1 text-gray-800">
-                Modulübersicht
-              </h2>
-              <h3 className="text-lg font-semibold mb-3 text-green-600">
-                Was Sie in 90 Minuten erwartet
-              </h3>
-              <p className="text-gray-700 mt-2 whitespace-pre-line">
-                Modul 1: Einführung in Künstliche Intelligenz{"\n"}
-                Was ist KI? Warum verändert sie unsere Arbeitswelt? Welche
-                Chancen und Risiken bestehen?
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg transition hover:shadow-xl cursor-pointer">
-              <h2 className="text-2xl font-bold mb-1 text-gray-800">
-                Ein Training für das ganze Unternehmen
-              </h2>
-              {/* kein subtitle */}
-              <p className="text-gray-700 mt-4 whitespace-pre-line">
-                Pflichtschulung gemäß EU AI Act. Einheitliches KI-Verständnis,
-                klare Regeln. Motivierender Einstieg.
-              </p>
-            </div>
-
-            {/* Zweite Reihe */}
-            <div className="p-6 rounded-lg transition hover:shadow-xl cursor-pointer">
-              <h2 className="text-2xl font-bold mb-1 text-gray-800">
-                Warum Sie jetzt handeln müssen
-              </h2>
-              <h3 className="text-lg font-semibold mb-3 text-green-600">
-                EU AI Act – ab 2025 haften Unternehmen für ihren KI-Einsatz.
-              </h3>
-              <p className="text-gray-700 whitespace-pre-line">
-                Bei Verstößen drohen Bußgelder von bis zu 3% des Umsatzes.{"\n"}
-                8 von 10 mittelständischen Unternehmen nutzen bereits KI – oft
-                ohne rechtliche Prüfung oder Schulung.{"\n"}
-                Die Herausforderung: Anforderungen verstehen und umsetzen.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg shadow-md transition hover:shadow-xl cursor-pointer bg-gray-50">
-              {/* Special case mit 2 subtitles + descriptions */}
-              <div className="mb-4 last:mb-0">
-                <h3 className="text-lg font-semibold mb-1 text-green-600">
-                  Modul 2: Der EU AI Act im Überblick
-                </h3>
-                <p className="text-gray-700 whitespace-pre-line">
-                  Was regelt das neue Gesetz?{"\n"}Wer ist betroffen?{"\n"}
-                  Welche Pflichten gelten konkret?
-                </p>
+                      {/* Button nur in der rechten Spalte */}
+                      {colIndex === 2 &&
+                        col.button?.visible &&
+                        col.button.label && (
+                          <div className="mt-8 flex justify-center items-center">
+                            <button
+                              onClick={() => {
+                                switch (col.button.actionType) {
+                                  case "modal":
+                                    openContact();
+                                    break;
+                                  case "link":
+                                    if (col.button.link)
+                                      window.open(col.button.link, "_blank");
+                                    break;
+                                  case "download":
+                                    if (col.button.file?.asset?.url)
+                                      window.open(
+                                        col.button.file.asset.url,
+                                        "_blank"
+                                      );
+                                    break;
+                                  default:
+                                    console.warn(
+                                      `Unbekannter Aktionstyp: ${col.button.actionType}`
+                                    );
+                                }
+                              }}
+                              className="bg-gray-800 transition hover:bg-green-600 text-white px-8 py-3 rounded-md shadow-lg flex items-center gap-2"
+                            >
+                              {/* Optional Icon (wenn du Icon-Komponenten hast) */}
+                              {col.button.iconName && (
+                                <span className="text-lg">{/* Icon */}</span>
+                              )}
+                              {col.button.label}
+                            </button>
+                          </div>
+                        )}
+                    </div>
+                  );
+                })}
               </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-1 text-green-600">
-                  Modul 3: Umsetzung & Checkliste für Ihr Unternehmen
-                </h3>
-                <p className="text-gray-700 whitespace-pre-line">
-                  Praktische Sofortmaßnahmen,{"\n"}Handlungsempfehlungen,{"\n"}
-                  Vorlage zur Dokumentation
-                </p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-lg cursor-pointer">
-              <h2 className="text-2xl font-bold mb-1 text-gray-800">
-                Transparente Preise – keine Überraschungen
-              </h2>
-              <h3 className="text-lg font-semibold mb-3 text-green-600">
-                Statt 3.500 € nur 1.750 €
-              </h3>
-              <p className="text-gray-700 mt-2 whitespace-pre-line">
-                gefördert über das Bundesamt für Wirtschaft und
-                Ausfuhrkontrolle.
-              </p>
-              {/* Button mittig in der zweiten Reihe */}
-              <div className="col-span-1 mt-8 flex justify-center items-center">
-                <button
-                  onClick={openContact}
-                  className="bg-gray-800 transition hover:bg-green-600 text-white px-8 py-3 rounded-md shadow-lg"
-                >
-                  Jetzt Training buchen
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+            </section>
+          ) : null
+        )}
       </Fade>
 
+      {/* FAQ */}
       <Fade direction="up" delay={200} triggerOnce>
         <FAQ />
       </Fade>

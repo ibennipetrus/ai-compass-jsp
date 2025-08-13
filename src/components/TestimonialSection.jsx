@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import client from "../sanityClient";
 
 const Testimonial = ({ image, name, position, text }) => (
   <div className="relative bg-gray-50 p-8 sm:p-12 rounded-lg shadow-lg max-w-full sm:max-w-4xl mx-auto">
@@ -21,28 +22,28 @@ const Testimonial = ({ image, name, position, text }) => (
 );
 
 const TestimonialsSection = () => {
-  const testimonials = [
-    {
-      image: "images/Claudia Menz.jpg",
-      name: "Claudia Menz",
-      position: "Geschäftsführerin Gründerplattform",
-      text: "Confias AI hat uns geholfen, unsere KI-Strategie praxisnah und rechtssicher zu definieren. Die Zusammenarbeit war effizient, kompetent und zukunftsorientiert.",
-    },
-    {
-      image: "images/Dennis Utter.jpg",
-      name: "Dennis Utter",
-      position: "Geschäftsführer Leading Employers",
-      text: "Confias AI ist für uns ein verlässlicher Partner bei der strategischen Weiterentwicklung von datengetriebenen Geschäftsmodellen. Ihre Analysen waren präzise, ihr Vorgehen methodisch und kundenorientiert.",
-    },
-    {
-      image: "images/Heike Tscherwinka.png",
-      name: "Heike Tscherwinka",
-      position: "Geschäftsführerin Europäischer Verband Lifestyle (EVL)",
-      text: "Als Branchenverband war es uns wichtig, unseren Mitgliedsunternehmen fundierte und praxisnahe Orientierung zu Künstlicher Intelligenz zu geben. Der KI-Kompass hat verständliche Grundlagen mit konkreten Anwendungen vereint, Vorbehalte abgebaut und nachhaltig bei der Kompetenzentwicklung unterstützt.",
-    },
-  ];
-
+  const [testimonials, setTestimonials] = useState([]);
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "testimonialsSection"][0]{
+          testimonials[]{
+            name,
+            position,
+            text,
+            "imageUrl": image.asset->url
+          }
+        }`
+      )
+      .then((data) => {
+        if (data?.testimonials) setTestimonials(data.testimonials);
+      })
+      .catch((err) => {
+        console.error("Sanity fetch error:", err);
+      });
+  }, []);
 
   const prevTestimonial = () => {
     setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
@@ -52,11 +53,16 @@ const TestimonialsSection = () => {
     setIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
   };
 
+  if (testimonials.length === 0) return <p>Lädt...</p>;
+
   return (
     <section className="bg-white py-16 px-6 md:px-12 max-w-3xl mx-auto">
       <h2 className="text-3xl font-bold text-center mb-12">Kundenstimmen</h2>
 
-      <Testimonial {...testimonials[index]} />
+      <Testimonial
+        {...testimonials[index]}
+        image={testimonials[index].imageUrl}
+      />
 
       <div className="flex justify-center gap-4 mt-8">
         <button
