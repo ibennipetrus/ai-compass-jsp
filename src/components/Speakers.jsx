@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaLinkedinIn, FaEnvelope } from "react-icons/fa";
 import toast from "react-hot-toast";
-import client, { urlFor } from "../sanityClient";
+import client from "../sanityClient";
 
 export default function Speakers({ className = "" }) {
   const [speakers, setSpeakers] = useState([]);
@@ -10,38 +10,34 @@ export default function Speakers({ className = "" }) {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "speaker" && visible == true]{
-          name,
-          title,
-          linkedin,
-          email,
-          "imageUrl": image.asset->url
+        `*[_type == "Homepage"][0]{
+          speakerHeadlines{visible, speakersSubHeadline, speakersHeadline},
+          speaker[] {
+            name,
+            title,
+            linkedin,
+            email,
+            visible,
+            "imageUrl": image.asset->url
+          }
         }`
       )
       .then((data) => {
-        setSpeakers(data);
-      })
-      .catch((err) => {
-        console.error("Sanity fetch error:", err);
-      });
+        // Headlines & Sichtbarkeit setzen
+        setSiteSettings(data?.speakerHeadlines || {});
 
-    client
-      .fetch(
-        `*[_type == "speakerHeadlines"][0]{
-          speakersSubHeadline,
-          speakersHeadline,
-          visible
-        }`
-      )
-      .then((data) => setSiteSettings(data))
-      .catch(() => {
-        console.warn("siteSettings nicht gefunden");
-      });
+        // Speaker setzen, nur sichtbare
+        const list = (data?.speaker || []).filter((s) => s.visible !== false);
+        setSpeakers(list);
+      })
+      .catch((err) => console.error("Sanity fetch error:", err));
   }, []);
 
   const copyToClipboard = (text, event) => {
-    event?.preventDefault();
-    event?.stopPropagation();
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
     const currentScroll = window.scrollY;
 
@@ -50,7 +46,7 @@ export default function Speakers({ className = "" }) {
         .writeText(text)
         .then(() => {
           toast.success(`Copied email: ${text}`);
-          window.scrollTo(0, currentScroll); // Scrollposition zurücksetzen
+          window.scrollTo(0, currentScroll);
         })
         .catch(() => toast.error("Failed to copy"));
     } else {
@@ -64,7 +60,7 @@ export default function Speakers({ className = "" }) {
         const successful = document.execCommand("copy");
         if (successful) {
           toast.success(`Copied email: ${text}`);
-          window.scrollTo(0, currentScroll); // Scrollposition zurücksetzen
+          window.scrollTo(0, currentScroll);
         } else {
           toast.error("Failed to copy");
         }
@@ -75,7 +71,9 @@ export default function Speakers({ className = "" }) {
     }
   };
 
-  if (speakers.length === 0) return <p>Lädt...</p>;
+  if (speakers.length === 0) {
+    return <p>Keine Speaker gefunden oder lädt...</p>;
+  }
 
   return (
     <div className={className + " px-4 lg:px-0"}>
@@ -83,10 +81,10 @@ export default function Speakers({ className = "" }) {
         {siteSettings?.visible !== false && (
           <>
             <h2 className="text-gray-600 text-sm uppercase tracking-wider mb-1 py-12 lg:py-0">
-              {siteSettings?.subHeadline || "Schulungspersonal"}
+              {siteSettings?.speakersSubHeadline || "Schulungspersonal"}
             </h2>
             <h3 className="text-2xl font-bold mb-4">
-              {siteSettings?.mainHeadline || "Unsere Redner"}
+              {siteSettings?.speakersHeadline || "Unsere Redner"}
             </h3>
           </>
         )}

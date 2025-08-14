@@ -6,10 +6,17 @@ export default {
     {name: 'header', title: 'Header-Bereich', options: {collapsible: true, collapsed: false}},
     {name: 'grid', title: 'Grid-Bereich', options: {collapsible: true, collapsed: true}},
     {name: 'faq', title: 'FAQ', options: {collapsible: true, collapsed: true}},
-    {name: 'whyAct', title: 'Warum handeln', options: {collapsible: true, collapsed: false}},
-    {name: 'benefits', title: 'Benefits', options: {collapsible: true, collapsed: false}},
-    {name: 'whyConfias', title: 'Warum Confias', options: {collapsible: true, collapsed: false}},
+    {name: 'whyAct', title: 'Warum handeln', options: {collapsible: true, collapsed: true}},
+    {name: 'benefits', title: 'Benefits', options: {collapsible: true, collapsed: true}},
+    {name: 'whyConfias', title: 'Warum Confias', options: {collapsible: true, collapsed: true}},
     {name: 'training', title: 'Training-Sektion', options: {collapsible: true, collapsed: true}},
+    {name: 'teamSection', title: 'Team Section', options: {collapsible: true, collapsed: true}},
+    {
+      name: 'testimonialsSection',
+      title: 'Testimonials Section',
+      options: {collapsible: true, collapsed: true},
+    },
+    {name: 'Footer', title: 'Footer', options: {collapsible: true, collapsed: true}},
   ],
   fields: [
     // === HEADER ===
@@ -169,6 +176,65 @@ export default {
       fieldset: 'grid',
     },
     {
+      name: 'speakerHeadlines',
+      title: 'Speaker Headlines',
+      type: 'object',
+      fieldset: 'grid', // oder ein neues Fieldset, z.B. 'speakers'
+      fields: [
+        {name: 'speakersSubHeadline', title: 'Schulungspersonal (Subheadline)', type: 'string'},
+        {name: 'speakersHeadline', title: 'Unsere Redner (Hauptheadline)', type: 'string'},
+        {name: 'visible', title: 'Sichtbar?', type: 'boolean', initialValue: true},
+      ],
+    },
+    {
+      name: 'speaker',
+      title: 'Speaker',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'name',
+              title: 'Name',
+              type: 'string',
+            },
+            {
+              name: 'title',
+              title: 'Titel',
+              type: 'text',
+            },
+            {
+              name: 'image',
+              title: 'Bild',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+            },
+            {
+              name: 'linkedin',
+              title: 'LinkedIn URL',
+              type: 'url',
+            },
+            {
+              name: 'email',
+              title: 'E-Mail',
+              type: 'string',
+            },
+            {
+              name: 'visible',
+              title: 'Sichtbar?',
+              type: 'boolean',
+              initialValue: true,
+              description: 'Ausblenden, wenn nicht sichtbar sein soll',
+            },
+          ],
+        },
+      ],
+      fieldset: 'grid',
+    },
+    {
       name: 'provenExpertVisible',
       title: 'ProvenExpert Widget sichtbar?',
       type: 'boolean',
@@ -302,13 +368,47 @@ export default {
 
     // === Testimonials ===
     {
-      name: 'Testimonialsinfo',
-      title: 'Hinweis für Testimonials',
-      type: 'string',
-      readOnly: true,
-      description: 'Die Testimonials werden in der eigenen "Testimonals Section"-Liste gepflegt.',
+      name: 'testimonialsSection',
+      title: 'Testimonials Section',
+      type: 'object',
+      fieldset: 'testimonialsSection',
+      fields: [
+        {
+          name: 'visible',
+          title: 'Sichtbar',
+          type: 'boolean',
+          initialValue: true,
+        },
+        {
+          name: 'testimonials',
+          title: 'Testimonials',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', title: 'Name', type: 'string'},
+                {name: 'position', title: 'Position', type: 'string'},
+                {name: 'text', title: 'Text', type: 'text'},
+                {
+                  name: 'image',
+                  title: 'Bild',
+                  type: 'image',
+                  options: {hotspot: true},
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'position',
+                  media: 'image',
+                },
+              },
+            },
+          ],
+        },
+      ],
     },
-
     // === Training ===
     {
       name: 'trainingRows',
@@ -447,20 +547,145 @@ export default {
 
     // === FAQ ===
     {
-      name: 'FAQinfo',
-      title: 'Hinweis für FAQ',
-      type: 'string',
-      readOnly: true,
-      description: 'Die FAQ werden in der eigenen "FAQ"-Liste gepflegt.',
+      name: 'faq',
+      title: 'FAQ',
+      type: 'object',
+      fieldset: 'faq',
+      fields: [
+        {
+          name: 'visible',
+          title: 'Sichtbar?',
+          type: 'boolean',
+          initialValue: true,
+        },
+        {
+          name: 'title',
+          title: 'Überschrift',
+          type: 'string',
+          initialValue: 'FAQ',
+        },
+        {
+          name: 'questions',
+          title: 'Fragen & Antworten',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'question', title: 'Frage', type: 'string'},
+                {name: 'answer', title: 'Antwort', type: 'text'},
+                {
+                  name: 'visible',
+                  title: 'Sichtbar?',
+                  type: 'boolean',
+                  initialValue: true,
+                },
+              ],
+              preview: {
+                select: {q: 'question'},
+                prepare: ({q}) => ({title: q || 'Neue Frage'}),
+              },
+            },
+          ],
+        },
+      ],
     },
 
     // === Team ===
     {
-      name: 'Teaminfo',
-      title: 'Hinweis für Team',
-      type: 'string',
-      readOnly: true,
-      description: 'Das Team wird in der eigenen "Team Section"-Liste gepflegt.',
+      name: 'teamSection',
+      title: 'Team Section',
+      type: 'object',
+      fieldset: 'teamSection', // kein 'document', sondern ein eingebettetes Objekt
+      fields: [
+        {name: 'visible', title: 'Sichtbar', type: 'boolean', initialValue: true},
+        {
+          name: 'members',
+          title: 'Teammitglieder',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', title: 'Name', type: 'string'},
+                {name: 'role', title: 'Rolle', type: 'string'},
+                {name: 'description', title: 'Beschreibung', type: 'text'},
+                {name: 'photo', title: 'Foto', type: 'image', options: {hotspot: true}},
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // === Footer ===
+    {
+      name: 'footerSection',
+      title: 'Footer Section',
+      type: 'object',
+      fieldset: 'Footer',
+      fields: [
+        {
+          name: 'logo',
+          title: 'Logo',
+          type: 'image',
+          options: {hotspot: true},
+        },
+        {
+          name: 'companyName',
+          title: 'Firmenname',
+          type: 'string',
+          initialValue: 'Confias AI Solutions GmbH',
+        },
+        {
+          name: 'street',
+          title: 'Straße & Hausnummer',
+          type: 'string',
+          initialValue: 'Lange Reihe 15',
+        },
+        {
+          name: 'city',
+          title: 'Bezirk & Stadt',
+          type: 'string',
+          initialValue: '20099 Hamburg',
+        },
+        {
+          name: 'hrInfo',
+          title: 'HR / Amtsgericht',
+          type: 'string',
+          initialValue: 'HR B 180145 (Amtsgericht Hamburg)',
+        },
+        {
+          name: 'website',
+          title: 'Webseite',
+          type: 'string',
+          initialValue: 'www.confias.ai',
+        },
+        {
+          name: 'email',
+          title: 'E-Mail',
+          type: 'string',
+          initialValue: 'info@confias.ai',
+        },
+        {
+          name: 'legalLinks',
+          title: 'Rechtliche Links',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'label', type: 'string'},
+                {name: 'path', type: 'string'},
+              ],
+            },
+          ],
+          initialValue: [
+            {label: 'Impressum', path: '/impressum'},
+            {label: 'Datenschutzerklärung', path: '/datenschutz'},
+          ],
+        },
+      ],
     },
   ],
 

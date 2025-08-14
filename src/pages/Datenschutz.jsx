@@ -1,7 +1,18 @@
-import React from "react";
-import Footer from "../components/Footer";
+import React, { useEffect, useState } from "react";
+import client from "../sanityClient";
 
-export default function Datenschutz() {
+const Datenschutz = () => {
+  const [policy, setPolicy] = useState(null);
+
+  useEffect(() => {
+    client
+      .fetch(`*[_type == "privacyPolicy"][0]`)
+      .then((res) => setPolicy(res))
+      .catch((err) => console.error("Sanity fetch error:", err));
+  }, []);
+
+  if (!policy) return <p>Lädt...</p>;
+
   return (
     <>
       <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-16 text-gray-800">
@@ -507,4 +518,4 @@ export default function Datenschutz() {
       <Footer />
     </>
   );
-}
+};

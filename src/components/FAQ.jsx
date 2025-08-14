@@ -5,34 +5,46 @@ import client from "../sanityClient";
 const FAQ = () => {
   const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
+  const [visible, setVisible] = useState(true);
+  const [title, setTitle] = useState("FAQ");
 
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "faq"][0]{
-          questions[]{
-            question,
-            answer
+        `
+        *[_type == "Homepage"][0]{
+          faq{
+            visible,
+            title,
+            questions[]{
+              question,
+              answer,
+              visible
+            }
           }
-        }`
+        }
+      `
       )
       .then((data) => {
-        if (data?.questions) setFaqs(data.questions);
+        const f = data?.faq;
+        setVisible(f?.visible !== false);
+        setTitle(f?.title || "FAQ");
+        const list = (f?.questions || []).filter((q) => q?.visible !== false);
+        setFaqs(list);
       })
       .catch((err) => {
         console.error("Sanity fetch error:", err);
       });
   }, []);
 
-  const toggle = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
+  if (!visible) return null;
   if (faqs.length === 0) return <p>Lädt...</p>;
+
+  const toggle = (index) => setOpenIndex(openIndex === index ? null : index);
 
   return (
     <section className="mx-auto mt-6 p-4 w-9/10 sm:max-w-3xl lg:max-w-5xl">
-      <h2 className="text-2xl text-black font-bold mb-6">FAQ</h2>
+      <h2 className="text-2xl text-black font-bold mb-6">{title}</h2>
       {faqs.map(({ question, answer }, index) => (
         <div key={index} className="border-b border-gray-300 py-4">
           <button

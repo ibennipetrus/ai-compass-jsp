@@ -23,26 +23,32 @@ const Testimonial = ({ image, name, position, text }) => (
 
 const TestimonialsSection = () => {
   const [testimonials, setTestimonials] = useState([]);
+  const [visible, setVisible] = useState(true);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "testimonialsSection"][0]{
-          testimonials[]{
-            name,
-            position,
-            text,
-            "imageUrl": image.asset->url
+        `*[_type == "Homepage"][0]{
+          testimonialsSection {
+            visible,
+            testimonials[] {
+              name,
+              position,
+              text,
+              "imageUrl": image.asset->url
+            }
           }
         }`
       )
       .then((data) => {
-        if (data?.testimonials) setTestimonials(data.testimonials);
+        if (data?.testimonialsSection) {
+          setVisible(data.testimonialsSection.visible);
+          if (data.testimonialsSection.testimonials)
+            setTestimonials(data.testimonialsSection.testimonials);
+        }
       })
-      .catch((err) => {
-        console.error("Sanity fetch error:", err);
-      });
+      .catch((err) => console.error("Sanity fetch error:", err));
   }, []);
 
   const prevTestimonial = () => {
@@ -53,7 +59,7 @@ const TestimonialsSection = () => {
     setIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
   };
 
-  if (testimonials.length === 0) return <p>Lädt...</p>;
+  if (!visible || testimonials.length === 0) return null;
 
   return (
     <section className="bg-white py-16 px-6 md:px-12 max-w-3xl mx-auto">
