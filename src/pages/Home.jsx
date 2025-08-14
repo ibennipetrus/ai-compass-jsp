@@ -196,7 +196,7 @@ visible,
         <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
           {/* Textblock */}
           <div className="max-w-xl md:pr-12 lg:pr-24">
-            <p className="text-sm uppercase text-green-600 tracking-wider mb-2">
+            <p className="text-sm uppercase text-green-600 tracking-wider mb-2 mt-2">
               {content.headerSubtitle}
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
