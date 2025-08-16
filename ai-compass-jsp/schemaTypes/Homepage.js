@@ -8,6 +8,7 @@ export default {
     {name: 'faq', title: 'FAQ', options: {collapsible: true, collapsed: true}},
     {name: 'whyAct', title: 'Warum handeln', options: {collapsible: true, collapsed: true}},
     {name: 'benefits', title: 'Benefits', options: {collapsible: true, collapsed: true}},
+    {name: 'ImageGitter', title: 'Image Grid', options: {collapsible: true, collapsed: true}},
     {name: 'whyConfias', title: 'Warum Confias', options: {collapsible: true, collapsed: true}},
     {name: 'training', title: 'Training-Sektion', options: {collapsible: true, collapsed: true}},
     {name: 'teamSection', title: 'Team Section', options: {collapsible: true, collapsed: true}},
@@ -106,14 +107,6 @@ export default {
           ],
         },
       ],
-      fieldset: 'grid',
-    },
-    {
-      name: 'speakersInfo',
-      title: 'Hinweis für Speaker',
-      type: 'string',
-      readOnly: true,
-      description: 'Die Speaker werden in der eigenen "Speakers"-Liste gepflegt.',
       fieldset: 'grid',
     },
     {
@@ -340,6 +333,7 @@ export default {
       name: 'imageGrid',
       title: 'Image Grid',
       type: 'array',
+      fieldset: 'ImageGitter',
       of: [
         {
           type: 'object',
@@ -695,8 +689,8 @@ export default {
             {
               type: 'object',
               fields: [
-                {name: 'label', type: 'string'},
-                {name: 'path', type: 'string'},
+                {name: 'label', type: 'string', title: 'Label'},
+                {name: 'path', type: 'string', title: 'Pfad / URL'},
               ],
             },
           ],

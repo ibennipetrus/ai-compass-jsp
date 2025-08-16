@@ -6,6 +6,14 @@ export default function Impressum() {
     <>
       <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-8 text-gray-800">
         <div className="max-w-3xl w-full">
+          <div className="mt-4 mb-8">
+            <button
+              onClick={() => window.history.back()}
+              className="bg-gray-800 transition hover:bg-green-600 text-white px-8 py-3 rounded-md shadow-lg flex items-center gap-2"
+            >
+              Zurück
+            </button>
+          </div>
           <h1 className="max-w-3xl w-full text-4xl font-bold mb-8 text-left">
             Impressum
           </h1>

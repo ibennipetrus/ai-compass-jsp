@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import client from "../sanityClient";
 
-const FAQ = () => {
+const FAQ = ({ docType }) => {
   const [faqs, setFaqs] = useState([]);
   const [openIndex, setOpenIndex] = useState(null);
   const [visible, setVisible] = useState(true);
@@ -11,19 +11,17 @@ const FAQ = () => {
   useEffect(() => {
     client
       .fetch(
-        `
-        *[_type == "Homepage"][0]{
+        `*[_type == "${docType}"][0]{
           faq{
             visible,
             title,
-            questions[]{
+            questions[] {
               question,
               answer,
               visible
             }
           }
-        }
-      `
+        }`
       )
       .then((data) => {
         const f = data?.faq;
@@ -32,10 +30,8 @@ const FAQ = () => {
         const list = (f?.questions || []).filter((q) => q?.visible !== false);
         setFaqs(list);
       })
-      .catch((err) => {
-        console.error("Sanity fetch error:", err);
-      });
-  }, []);
+      .catch((err) => console.error("Sanity fetch error:", err));
+  }, [docType]);
 
   if (!visible) return null;
   if (faqs.length === 0) return <p>Lädt...</p>;

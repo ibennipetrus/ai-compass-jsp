@@ -32,9 +32,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-start items-start gap-6">
         {/* Logo */}
         {footerData.logoUrl && (
-          <Link to="/">
-            <img src={footerData.logoUrl} alt="Logo" className="h-12" />
-          </Link>
+          <img src={footerData.logoUrl} alt="Logo" className="h-12" />
         )}
 
         {/* Firmeninformationen */}

@@ -21,7 +21,7 @@ const Testimonial = ({ image, name, position, text }) => (
   </div>
 );
 
-const TestimonialsSection = () => {
+const TestimonialsSection = ({ docType = "Homepage" }) => {
   const [testimonials, setTestimonials] = useState([]);
   const [visible, setVisible] = useState(true);
   const [index, setIndex] = useState(0);
@@ -29,7 +29,7 @@ const TestimonialsSection = () => {
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "Homepage"][0]{
+        `*[_type == "${docType}"][0]{
           testimonialsSection {
             visible,
             testimonials[] {
@@ -42,14 +42,17 @@ const TestimonialsSection = () => {
         }`
       )
       .then((data) => {
-        if (data?.testimonialsSection) {
-          setVisible(data.testimonialsSection.visible);
-          if (data.testimonialsSection.testimonials)
-            setTestimonials(data.testimonialsSection.testimonials);
+        const section = data?.testimonialsSection;
+        if (section) {
+          setVisible(section.visible !== false);
+          setTestimonials(section.testimonials || []);
+        } else {
+          setVisible(false);
+          setTestimonials([]);
         }
       })
       .catch((err) => console.error("Sanity fetch error:", err));
-  }, []);
+  }, [docType]);
 
   const prevTestimonial = () => {
     setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));

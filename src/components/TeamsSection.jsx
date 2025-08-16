@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import client from "../sanityClient";
 
-const TeamSection = () => {
+const TeamSection = ({ docType = "Homepage" }) => {
   const [teamData, setTeamData] = useState(null);
 
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "Homepage"][0]{
-      "team": teamSection{
-        visible,
-        members[]{
-          name,
-          role,
-          description,
-          "photoUrl": photo.asset->url
-        }
-      }
-    }`
+        `*[_type == "${docType}"][0]{
+          "team": teamSection{
+            visible,
+            members[] {
+              name,
+              role,
+              description,
+              "photoUrl": photo.asset->url
+            }
+          }
+        }`
       )
       .then((data) => setTeamData(data.team))
       .catch((err) => console.error("Sanity fetch error:", err));
-  }, []);
+  }, [docType]);
 
   if (!teamData) return <p>Lädt...</p>;
-  if (!teamData || !teamData.visible) return null;
+  if (!teamData.visible) return null;
   if (!teamData.members || teamData.members.length === 0)
     return <p>Keine Teammitglieder vorhanden.</p>;
 

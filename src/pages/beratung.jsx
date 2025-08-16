@@ -352,7 +352,10 @@ visible,
               ))}
 
             {/* Column 3: Team (2 rows) */}
-            <Speakers className="lg:col-start-3 lg:row-start-1 col-span-1 row-span-2" />
+            <Speakers
+              className="lg:col-start-3 lg:row-start-1 col-span-1 row-span-2"
+              docType="Homepage"
+            />
 
             {/* Column 3: Button (1 row) */}
             <div className="lg:col-start-3 lg:row-start-3 col-span-1 row-span-1 flex justify-center">
@@ -535,7 +538,7 @@ visible,
       <Fade direction="up" delay={200} triggerOnce>
         <section className="bg-white py-8">
           <div className="w-11/12 lg:w-3/4 mx-auto">
-            <TestimonialSection />
+            <TestimonialSection docType="Homepage" />
           </div>
         </section>
       </Fade>
@@ -636,11 +639,11 @@ visible,
 
       {/* FAQ */}
       <Fade direction="up" delay={200} triggerOnce>
-        <FAQ />
+        <FAQ docType="Homepage" />
       </Fade>
 
       <Fade direction="up" delay={200} triggerOnce>
-        <TeamSection />
+        <TeamSection docType="Homepage" />
       </Fade>
 
       <Footer />

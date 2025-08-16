@@ -15,9 +15,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/beratung" element={<Beratung />} />
+        <Route path="/checkliste" element={<Checkliste />} />
         <Route path="/whitepaper" element={<Whitepaper />} />
-        <Route path="impressum" element={<Impressum />} />
-        <Route path="datenschutz" element={<Datenschutz />} />
+        <Route path="/impressum" element={<Impressum />} />
+        <Route path="/datenschutz" element={<Datenschutz />} />
       </Routes>
     </>
   );

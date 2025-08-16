@@ -3,14 +3,14 @@ import { FaLinkedinIn, FaEnvelope } from "react-icons/fa";
 import toast from "react-hot-toast";
 import client from "../sanityClient";
 
-export default function Speakers({ className = "" }) {
+export default function Speakers({ docType = "Homepage", className = "" }) {
   const [speakers, setSpeakers] = useState([]);
   const [siteSettings, setSiteSettings] = useState(null);
 
   useEffect(() => {
     client
       .fetch(
-        `*[_type == "Homepage"][0]{
+        `*[_type == "${docType}"][0]{
           speakerHeadlines{visible, speakersSubHeadline, speakersHeadline},
           speaker[] {
             name,
@@ -31,7 +31,7 @@ export default function Speakers({ className = "" }) {
         setSpeakers(list);
       })
       .catch((err) => console.error("Sanity fetch error:", err));
-  }, []);
+  }, [docType]);
 
   const copyToClipboard = (text, event) => {
     if (event) {
