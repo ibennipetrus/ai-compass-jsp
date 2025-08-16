@@ -298,14 +298,17 @@ visible,
           <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-[40%_20%_28%_12%] lg:grid-rows-[auto_auto_auto] grid-rows-3 gap-4">
             {/* Column 1: Großes Bild (2 rows) */}
             <div className="lg:col-start-1 col-span-1 row-span-3 flex flex-col">
-              {/* Bild */}
-              {content.mainImageVisible && content.mainImage && (
-                <div className="flex-shrink-0">
-                  <img
-                    src={urlFor(content.mainImage).url()}
-                    alt="Großes Bild"
-                    className="w-full h-auto object-contain shadow-lg hover:shadow-xl transition rounded-lg"
-                  />
+              {/* Why Act */}
+              {content.whyAct?.visible && (
+                <div className="w-full bg-white mx-auto p-8 rounded-lg shadow-md hover:shadow-xl transition">
+                  <h2 className="text-3xl font-bold mb-4 text-center">
+                    {content.whyAct.headline}
+                  </h2>
+                  <ul className="list-disc list-outside space-y-2 text-sm text-left text-gray-600">
+                    {content.whyAct.items?.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
@@ -354,7 +357,7 @@ visible,
             {/* Column 3: Team (2 rows) */}
             <Speakers
               className="lg:col-start-3 lg:row-start-1 col-span-1 row-span-2"
-              docType="HomeChecklist"
+              docType="HomeWhitepaper"
             />
 
             {/* Column 3: Button (1 row) */}
@@ -421,59 +424,44 @@ visible,
         </section>
       </Fade>
 
-      {/* Warum handeln */}
-      <Fade direction="up" delay={200} triggerOnce>
-        {content.whyAct?.visible && (
-          <section className="bg-white py-8">
-            <div className="w-9/10 lg:max-w-[30%] mx-auto bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition">
-              <h2 className="text-3xl font-bold mb-6 text-center">
-                {content.whyAct.headline}
-              </h2>
-              <ul className="list-disc list-outside space-y-6 text-sm text-left text-gray-600">
-                {content.whyAct.items?.map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-      </Fade>
-
       {/* Benefits */}
       <Fade direction="up" delay={200} triggerOnce>
-        {content.benefitsVisible !== false && (
-          <section className="bg-white py-8">
-            <div className="text-center mb-10">
-              <h3 className="text-gray-600 text-sm uppercase tracking-widest">
-                {content.benefitsHeaderH3 || "Benefits"}
-              </h3>
-              <h2 className="text-3xl font-bold mt-2">
-                {content.benefitsHeaderH2 || "Das bekommen Sie"}
-              </h2>
-            </div>
+        <section
+          className="bg-white py-8"
+          style={{ display: content.benefitsVisible ? "block" : "none" }}
+        >
+          <div className="text-center mb-10">
+            <h3 className="text-gray-600 text-sm uppercase tracking-widest">
+              {content.benefitsHeaderH3 || "Benefits"}
+            </h3>
+            <h2 className="text-3xl font-bold mt-2">
+              {content.benefitsHeaderH2 || "Das bekommen Sie"}
+            </h2>
+          </div>
 
-            <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {content.benefitsList
-                ?.filter((item) => item.visible !== false)
-                .map((feature, i) => (
-                  <div
-                    key={i}
-                    className="bg-gray-50 shadow-md hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center"
-                  >
-                    <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
-                      {iconMap[feature.iconName] || null}
-                    </div>
-                    <h4 className="font-semibold text-lg mb-2">
-                      {feature.title}
-                    </h4>
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {content.benefitsList
+              ?.filter((item) => item && item.visible !== false)
+              .map((feature, i) => (
+                <div
+                  key={i}
+                  className="bg-gray-50 shadow-md hover:shadow-xl transition rounded-lg p-6 flex flex-col items-center text-center"
+                >
+                  <div className="bg-green-100 text-green-600 rounded-full p-4 mb-4">
+                    {iconMap[feature.iconName] || null}
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">
+                    {feature.title}
+                  </h4>
+                  {feature.description && (
                     <p className="text-sm text-gray-600">
                       {feature.description}
                     </p>
-                  </div>
-                ))}
-            </div>
-          </section>
-        )}
+                  )}
+                </div>
+              ))}
+          </div>
+        </section>
       </Fade>
 
       {/* Image Grid */}
@@ -518,27 +506,28 @@ visible,
 
       {/* Why Confias */}
       <Fade direction="up" delay={200} triggerOnce>
-        {content.whyConfias?.visible && (
-          <section className="bg-white py-8">
-            <div className="w-9/10 lg:max-w-5xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition">
-              <h2 className="text-3xl font-bold mb-6 text-center">
-                {content.whyConfias.headline}
-              </h2>
-              <ul className="list-disc list-inside space-y-6 text-sm text-left text-gray-600">
-                {content.whyConfias.points.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
+        <section
+          className="bg-white py-8"
+          style={{ display: content.whyConfias.visible ? "block" : "none" }}
+        >
+          <div className="w-9/10 lg:max-w-5xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition">
+            <h2 className="text-3xl font-bold mb-6 text-center">
+              {content.whyConfias.headline}
+            </h2>
+            <ul className="list-disc list-inside space-y-6 text-sm text-left text-gray-600">
+              {content.whyConfias.points.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
       </Fade>
 
       {/* Testimonials */}
       <Fade direction="up" delay={200} triggerOnce>
         <section className="bg-white py-8">
           <div className="w-11/12 lg:w-3/4 mx-auto">
-            <TestimonialSection docType="HomeChecklist" />
+            <TestimonialSection docType="HomeWhitepaper" />
           </div>
         </section>
       </Fade>
@@ -639,11 +628,11 @@ visible,
 
       {/* FAQ */}
       <Fade direction="up" delay={200} triggerOnce>
-        <FAQ docType="HomeChecklist" />
+        <FAQ docType="HomeWhitepaper" />
       </Fade>
 
       <Fade direction="up" delay={200} triggerOnce>
-        <TeamSection docType="HomeChecklist" />
+        <TeamSection docType="HomeWhitepaper" />
       </Fade>
 
       <Footer />

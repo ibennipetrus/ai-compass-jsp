@@ -80,20 +80,6 @@ export default {
 
     // === GRID-BEREICH ===
     {
-      name: 'mainImage',
-      title: 'Großes Bild (links oben)',
-      type: 'image',
-      options: {hotspot: true},
-      fieldset: 'grid',
-    },
-    {
-      name: 'mainImageVisible',
-      title: 'Großes Bild sichtbar?',
-      type: 'boolean',
-      initialValue: true,
-      fieldset: 'grid',
-    },
-    {
       name: 'benefits',
       title: 'Benefits',
       type: 'array',
@@ -269,6 +255,9 @@ export default {
       title: 'Benefits Sektion sichtbar?',
       type: 'boolean',
       initialValue: true,
+      options: {
+        layout: 'switch', // macht es in Studio schöner & eindeutiger
+      },
       fieldset: 'benefits',
     },
     {
@@ -302,7 +291,6 @@ export default {
                   {title: 'Training', value: 'training'},
                   {title: 'Self Learning', value: 'selfLearning'},
                   {title: 'Certification', value: 'certification'},
-                  // hier kannst du noch mehr Icons definieren oder als SVGs anlegen
                 ],
                 layout: 'dropdown',
               },
@@ -322,6 +310,9 @@ export default {
               title: 'Sichtbar?',
               type: 'boolean',
               initialValue: true,
+              options: {
+                layout: 'switch',
+              },
             },
           ],
         },
