@@ -1,6 +1,6 @@
 export default {
   name: 'Homepage',
-  title: 'Homepage',
+  title: 'Beratung',
   type: 'document',
   fieldsets: [
     {name: 'header', title: 'Header-Bereich', options: {collapsible: true, collapsed: false}},
@@ -336,6 +336,26 @@ export default {
     },
 
     // === Bildergrid ===
+    {
+      name: 'imageGrid',
+      title: 'Image Grid',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'visible', title: 'Sichtbar', type: 'boolean', initialValue: true},
+            {name: 'wideImage', title: 'Längliches Bild', type: 'image', options: {hotspot: true}},
+            {
+              name: 'squareImage',
+              title: 'Quadratisches Bild',
+              type: 'image',
+              options: {hotspot: true},
+            },
+          ],
+        },
+      ],
+    },
 
     // === Warum Confias ===
     {

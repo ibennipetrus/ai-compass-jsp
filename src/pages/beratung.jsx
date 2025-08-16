@@ -60,7 +60,7 @@ const iconMap = {
   ),
 };
 
-const Home = () => {
+const Beratung = () => {
   const [showCountdown, setShowCountdown] = useState(false);
   const [loadingCountdown, setLoadingCountdown] = useState(true);
   const [content, setContent] = useState(null);
@@ -650,4 +650,4 @@ visible,
   );
 };
 
-export default Home;
+export default Beratung;
