@@ -227,10 +227,10 @@ visible,
                       <button
                         key={idx}
                         onClick={openContact}
-                        className="inline-flex w-auto self-start items-center justify-center whitespace-normal bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        className="inline-flex w-auto self-start items-center whitespace-normal bg-black text-white px-5 py-2 rounded transition hover:bg-green-600"
                       >
                         {IconComponent && (
-                          <IconComponent className="text-white shrink-0" />
+                          <IconComponent className="text-white shrink-0 mr-2" />
                         )}
                         <span>{btn.label}</span>
                       </button>
@@ -244,11 +244,11 @@ visible,
                         href={btn.file.asset.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex w-auto self-start items-center justify-center whitespace-normal bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        className="inline-flex w-auto self-start items-center whitespace-normal bg-black text-white px-5 py-2 rounded transition hover:bg-green-600"
                         download={false}
                       >
                         {IconComponent && (
-                          <IconComponent className="text-white shrink-0" />
+                          <IconComponent className="text-white shrink-0 mr-2" />
                         )}
                         <span>{btn.label}</span>
                       </a>
@@ -261,10 +261,10 @@ visible,
                       href={btn.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex w-auto self-start items-center justify-center whitespace-normal bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                      className="inline-flex w-auto self-start items-center whitespace-normal bg-black text-white px-5 py-2 rounded transition hover:bg-green-600"
                     >
                       {IconComponent && (
-                        <IconComponent className="text-white shrink-0" />
+                        <IconComponent className="text-white shrink-0 mr-2" />
                       )}
                       <span>{btn.label}</span>
                     </a>
