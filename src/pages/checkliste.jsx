@@ -204,7 +204,7 @@ visible,
       >
         <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
           {/* Textblock */}
-          <div className="md:pr-12 lg:pr-24">
+          <div className="max-w-xl md:pr-12 lg:pr-24">
             <p className="text-sm uppercase text-green-600 tracking-wider mb-2 mt-2">
               {content.headerSubtitle}
             </p>
@@ -212,54 +212,39 @@ visible,
               {content.headerTitle}
             </h1>
             <p className="mb-6">{content.headerText}</p>
+          </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:w-full">
-              {content.buttons
-                ?.filter((b) => b.visible)
-                .map((btn, idx) => {
-                  const IconComponent = FaIcons[btn.iconName] || null;
+          {/* Buttons separat, ohne max-w */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            {content.buttons
+              ?.filter((b) => b.visible)
+              .map((btn, idx) => {
+                const IconComponent = FaIcons[btn.iconName] || null;
 
-                  if (btn.actionType === "modal") {
-                    return (
-                      <button
-                        key={idx}
-                        onClick={openContact}
-                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                      >
-                        {IconComponent && (
-                          <IconComponent className="text-white shrink-0" />
-                        )}
-                        <span>{btn.label}</span>
-                      </button>
-                    );
-                  }
+                if (btn.actionType === "modal") {
+                  return (
+                    <button
+                      key={idx}
+                      onClick={openContact}
+                      className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                    >
+                      {IconComponent && (
+                        <IconComponent className="text-white shrink-0" />
+                      )}
+                      <span>{btn.label}</span>
+                    </button>
+                  );
+                }
 
-                  if (btn.actionType === "download" && btn.file?.asset?.url) {
-                    return (
-                      <a
-                        key={idx}
-                        href={btn.file.asset.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                        download={false}
-                      >
-                        {IconComponent && (
-                          <IconComponent className="text-white shrink-0" />
-                        )}
-                        <span>{btn.label}</span>
-                      </a>
-                    );
-                  }
-
-                  // Default: Link
+                if (btn.actionType === "download" && btn.file?.asset?.url) {
                   return (
                     <a
                       key={idx}
-                      href={btn.link}
+                      href={btn.file.asset.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                      download={false}
                     >
                       {IconComponent && (
                         <IconComponent className="text-white shrink-0" />
@@ -267,8 +252,23 @@ visible,
                       <span>{btn.label}</span>
                     </a>
                   );
-                })}
-            </div>
+                }
+
+                return (
+                  <a
+                    key={idx}
+                    href={btn.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                  >
+                    {IconComponent && (
+                      <IconComponent className="text-white shrink-0" />
+                    )}
+                    <span>{btn.label}</span>
+                  </a>
+                );
+              })}
           </div>
         </div>
       </header>
