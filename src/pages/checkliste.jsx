@@ -203,47 +203,65 @@ visible,
         }}
       >
         <div className="lg:max-w-[80%] mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
-          <div className="max-w-xl md:pr-12 lg:pr-24">
-            <p className="text-sm uppercase text-green-600 tracking-wider mb-2 mt-2">
-              {content.headerSubtitle}
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-              {content.headerTitle}
-            </h1>
-            <p className="mb-6">{content.headerText}</p>
-          </div>
+          <div>
+            {/* Textblock */}
+            <div className="max-w-xl md:pr-12 lg:pr-24">
+              <p className="text-sm uppercase text-green-600 tracking-wider mb-2 mt-2">
+                {content.headerSubtitle}
+              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+                {content.headerTitle}
+              </h1>
+              <p className="mb-6">{content.headerText}</p>
+            </div>
 
-          {/* Buttons bleiben unter dem Text, aber außerhalb der max-w Begrenzung */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-            {content.buttons
-              ?.filter((b) => b.visible)
-              .map((btn, idx) => {
-                const IconComponent = FaIcons[btn.iconName] || null;
+            {/* Buttons bleiben unter dem Text, aber nicht durch max-w begrenzt */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4">
+              {content.buttons
+                ?.filter((b) => b.visible)
+                .map((btn, idx) => {
+                  const IconComponent = FaIcons[btn.iconName] || null;
 
-                if (btn.actionType === "modal") {
-                  return (
-                    <button
-                      key={idx}
-                      onClick={openContact}
-                      className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                    >
-                      {IconComponent && (
-                        <IconComponent className="text-white shrink-0" />
-                      )}
-                      <span>{btn.label}</span>
-                    </button>
-                  );
-                }
+                  if (btn.actionType === "modal") {
+                    return (
+                      <button
+                        key={idx}
+                        onClick={openContact}
+                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                      >
+                        {IconComponent && (
+                          <IconComponent className="text-white shrink-0" />
+                        )}
+                        <span>{btn.label}</span>
+                      </button>
+                    );
+                  }
 
-                if (btn.actionType === "download" && btn.file?.asset?.url) {
+                  if (btn.actionType === "download" && btn.file?.asset?.url) {
+                    return (
+                      <a
+                        key={idx}
+                        href={btn.file.asset.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        download={false}
+                      >
+                        {IconComponent && (
+                          <IconComponent className="text-white shrink-0" />
+                        )}
+                        <span>{btn.label}</span>
+                      </a>
+                    );
+                  }
+
                   return (
                     <a
                       key={idx}
-                      href={btn.file.asset.url}
+                      href={btn.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                      download={false}
                     >
                       {IconComponent && (
                         <IconComponent className="text-white shrink-0" />
@@ -251,23 +269,8 @@ visible,
                       <span>{btn.label}</span>
                     </a>
                   );
-                }
-
-                return (
-                  <a
-                    key={idx}
-                    href={btn.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
-                  >
-                    {IconComponent && (
-                      <IconComponent className="text-white shrink-0" />
-                    )}
-                    <span>{btn.label}</span>
-                  </a>
-                );
-              })}
+                })}
+            </div>
           </div>
         </div>
       </header>
