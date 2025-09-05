@@ -214,8 +214,18 @@ visible,
             <p className="mb-6">{content.headerText}</p>
           </div>
 
-          {/* Buttons separat, ohne max-w */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+          <div className="max-w-xl md:pr-12 lg:pr-24">
+            <p className="text-sm uppercase text-green-600 tracking-wider mb-2 mt-2">
+              {content.headerSubtitle}
+            </p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+              {content.headerTitle}
+            </h1>
+            <p className="mb-6">{content.headerText}</p>
+          </div>
+
+          {/* Buttons bleiben unter dem Text, aber außerhalb der max-w Begrenzung */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4">
             {content.buttons
               ?.filter((b) => b.visible)
               .map((btn, idx) => {
