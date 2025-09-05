@@ -216,7 +216,7 @@ visible,
             </div>
 
             {/* Buttons bleiben unter dem Text, aber nicht durch max-w begrenzt */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4">
+            <div className="inline-flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4">
               {content.buttons
                 ?.filter((b) => b.visible)
                 .map((btn, idx) => {
@@ -227,7 +227,7 @@ visible,
                       <button
                         key={idx}
                         onClick={openContact}
-                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        className="inline-flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
                       >
                         {IconComponent && (
                           <IconComponent className="text-white shrink-0" />
@@ -244,7 +244,7 @@ visible,
                         href={btn.file.asset.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
+                        className="inline-flex items-center bg-black text-white px-5 py-2 rounded space-x-2 transition hover:bg-green-600"
                         download={false}
                       >
                         {IconComponent && (
