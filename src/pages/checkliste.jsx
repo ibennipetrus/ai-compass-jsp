@@ -216,7 +216,7 @@ visible,
             </div>
 
             {/* Buttons bleiben unter dem Text, aber nicht durch max-w begrenzt */}
-            <div className="inline-flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap mt-4 justify-start">
               {content.buttons
                 ?.filter((b) => b.visible)
                 .map((btn, idx) => {
