@@ -213,7 +213,7 @@ visible,
             </h1>
             <p className="mb-6">{content.headerText}</p>
 
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
               {content.buttons
                 ?.filter((b) => b.visible)
                 .map((btn, idx) => {
