@@ -128,7 +128,7 @@ export default function ReadinessCheck() {
   async function saveSubmissionToSanity(payload) {
     setSaving(true);
     try {
-      const res = await fetch("/api/saveReadiness", {
+      const res = await fetch("/.netifly/functions/saveReadiness", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
