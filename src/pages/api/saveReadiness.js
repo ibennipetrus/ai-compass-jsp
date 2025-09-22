@@ -1,4 +1,12 @@
-import client from "../../sanityClient";
+import { createClient } from "@sanity/client";
+
+const client = createClient({
+  projectId: "5z6b0ok7",
+  dataset: "production",
+  useCdn: false,
+  apiVersion: "2025-08-12",
+  token: process.env.SANITY_WRITE_TOKEN, // <-- hier ist es sicher
+});
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
