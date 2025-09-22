@@ -62,7 +62,7 @@ const ContactModal = ({ onClose }) => {
 
     emailjs
       .sendForm(
-        "service_i06rsus",
+        "service_ryrxjqh",
         "template_l3tko1u",
         formRef.current,
         "L2ByIeyAeTxtPrEl-"
