@@ -99,13 +99,6 @@ const PERSONA_IMAGES = {
   Champion: "/images/Champion.png",
 };
 
-const ANSWER_LABELS = {
-  2: "Ja",
-  1: "Teilweise",
-  0: "Nein",
-  null: "-",
-};
-
 export default function ReadinessCheck() {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
@@ -160,21 +153,22 @@ export default function ReadinessCheck() {
     }
   }
 
-  // 🔹 Setzt die Antwort und aktualisiert automatisch das nächste Step
   const setAnswer = (idx, val) => {
     setAnswers((prev) => {
       const next = [...prev];
       next[idx] = val;
+
+      // Jetzt direkt den nächsten Schritt berechnen mit aktualisierten next
+      const nextUnanswered = next.findIndex((v) => v === null);
+      if (nextUnanswered === -1) {
+        saveSubmission();
+        setStep(QUESTIONS.length + 1);
+      } else {
+        setStep(nextUnanswered + 1);
+      }
+
       return next;
     });
-
-    const nextUnanswered = answers.findIndex((v) => v === null);
-    if (nextUnanswered === -1) {
-      saveSubmission();
-      setStep(QUESTIONS.length + 1);
-    } else {
-      setStep(nextUnanswered + 1);
-    }
   };
 
   // 🔹 Reset-Funktion für „Neuer Check“
