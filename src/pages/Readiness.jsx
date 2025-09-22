@@ -110,17 +110,6 @@ export default function ReadinessCheck() {
   const [savedId, setSavedId] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  // page content (optional): if you want title/intro from sanity
-  useEffect(() => {
-    client
-      .fetch(`*[_type == "Readiness"][0]{title,introText}`)
-      .then((data) => {
-        setPageContent(data || {});
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
-
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const nameOk = name.trim().length > 1;
   const canStart = emailOk && nameOk;
@@ -143,8 +132,12 @@ export default function ReadinessCheck() {
     setSaving(true);
     try {
       const doc = {
-        _type: "readinessCheckSubmission",
-        ...payload,
+        _type: "readinessResult",
+        name: payload.name,
+        email: payload.email,
+        answers: payload.answers,
+        score: payload.score,
+        persona: payload.persona,
         createdAt: new Date().toISOString(),
       };
       const res = await client.create(doc);
