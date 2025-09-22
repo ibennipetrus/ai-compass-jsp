@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import Footer from "../components/Footer";
 import "../styles/Readiness.css";
+import emailjs from "@emailjs/browser";
 
 const QUESTIONS = [
   {
@@ -124,18 +125,28 @@ export default function ReadinessCheck() {
 
   const persona = ARCHETYPES[personaKey];
 
-  async function saveSubmissionToCsv(payload) {
+  async function saveSubmission(payload) {
     setSaving(true);
     try {
-      const res = await fetch("/api/saveReadinessCsv", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      console.log("Saved:", data);
-    } catch (err) {
-      console.error("Failed to save submission:", err);
+      const templateParams = {
+        name: payload.name,
+        email: payload.email,
+        answers: payload.answers.join(", "),
+        score: payload.score,
+        persona: payload.persona,
+      };
+
+      const result = await emailjs.send(
+        "service_i06rsus",
+        "service_i06rsus",
+        templateParams,
+        "L2ByIeyAeTxtPrEl-"
+      );
+
+      console.log("Email sent", result.text);
+      setSavedId("sent"); // optional, um den Status zu zeigen
+    } catch (e) {
+      console.error("Failed to send email", e);
     } finally {
       setSaving(false);
     }
@@ -147,7 +158,7 @@ export default function ReadinessCheck() {
     setAnswers(next);
     const nextUnanswered = next.findIndex((v) => v === null);
     if (nextUnanswered === -1) {
-      saveSubmissionToCsv({
+      saveSubmission({
         name,
         email,
         answers: next,
