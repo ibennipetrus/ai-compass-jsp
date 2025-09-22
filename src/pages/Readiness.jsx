@@ -187,7 +187,7 @@ export default function ReadinessCheck() {
     <div className="readiness-container flex flex-col min-h-screen">
       <main className="readiness-main flex-1 p-6 overflow-auto">
         <header className="readiness-header">
-          <img src="/Logo.png" alt="Logo" style={{ height: 40 }} />
+          <img src="./Logo.png" alt="Logo" style={{ height: 40 }} />
           <div>
             <h1 className="text-black text-4xl md:text-5xl font-semibold">
               KI Readiness Quick Check
