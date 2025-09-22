@@ -134,6 +134,13 @@ export default function ReadinessCheck() {
 
   const persona = ARCHETYPES[personaKey];
 
+  const ANSWER_LABELS = {
+    2: "Ja",
+    1: "Teilweise",
+    0: "Nein",
+    null: "-",
+  };
+
   async function saveSubmission() {
     setSaving(true);
     try {
@@ -153,17 +160,24 @@ export default function ReadinessCheck() {
     }
   }
 
+  // 🔹 Setzt die Antwort und aktualisiert automatisch das nächste Step
   const setAnswer = (idx, val) => {
-    const next = [...answers];
-    next[idx] = val;
-    setAnswers(next);
-    const nextUnanswered = next.findIndex((v) => v === null);
+    setAnswers((prev) => {
+      const next = [...prev];
+      next[idx] = val;
+      return next;
+    });
+
+    const nextUnanswered = answers.findIndex((v) => v === null);
     if (nextUnanswered === -1) {
-      saveSubmission(); // 🔹 Jetzt über das versteckte Formular
+      saveSubmission();
       setStep(QUESTIONS.length + 1);
-    } else setStep(nextUnanswered + 1);
+    } else {
+      setStep(nextUnanswered + 1);
+    }
   };
 
+  // 🔹 Reset-Funktion für „Neuer Check“
   const reset = () => {
     setStep(0);
     setAnswers(Array(QUESTIONS.length).fill(null));
@@ -171,6 +185,18 @@ export default function ReadinessCheck() {
     setEmail("");
     setSavedId(null);
   };
+
+  // 🔹 useEffect für synchronisierte Labels im versteckten Formular
+  useEffect(() => {
+    if (formRef.current) {
+      const answerInput = formRef.current.querySelector(
+        'input[name="answers"]'
+      );
+      if (answerInput) {
+        answerInput.value = answers.map((a) => ANSWER_LABELS[a]).join(", ");
+      }
+    }
+  }, [answers]);
 
   return (
     <div className="readiness-container flex flex-col min-h-screen">
