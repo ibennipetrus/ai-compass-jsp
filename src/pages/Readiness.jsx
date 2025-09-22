@@ -107,6 +107,8 @@ export default function ReadinessCheck() {
   const [savedId, setSavedId] = useState(null);
   const [saving, setSaving] = useState(false);
 
+  const formRef = useRef(); // 🔹 Ref für unser verstecktes Formular
+
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const nameOk = name.trim().length > 1;
   const canStart = emailOk && nameOk;
@@ -125,28 +127,20 @@ export default function ReadinessCheck() {
 
   const persona = ARCHETYPES[personaKey];
 
-  async function saveSubmission(payload) {
+  async function saveSubmission() {
     setSaving(true);
     try {
-      const templateParams = {
-        name: payload.name,
-        email: payload.email,
-        answers: payload.answers.join(", "),
-        score: payload.score,
-        persona: payload.persona,
-      };
-
-      const result = await emailjs.send(
+      const result = await emailjs.sendForm(
         "service_ryrxjqh",
         "template_5wgvfth",
-        templateParams,
-        "L2ByIeyAeTxtPrEl-"
+        formRef.current,
+        "L2ByIeyAeTxtPrEl-" // dein Public Key
       );
 
-      console.log("Email sent", result.text);
-      setSavedId("sent"); // optional, um den Status zu zeigen
+      console.log("Email sent ✅", result.text);
+      setSavedId("sent");
     } catch (e) {
-      console.error("Failed to send email", e);
+      console.error("Failed to send email ❌", e);
     } finally {
       setSaving(false);
     }
@@ -158,13 +152,7 @@ export default function ReadinessCheck() {
     setAnswers(next);
     const nextUnanswered = next.findIndex((v) => v === null);
     if (nextUnanswered === -1) {
-      saveSubmission({
-        name,
-        email,
-        answers: next,
-        score,
-        persona: personaKey,
-      });
+      saveSubmission(); // 🔹 Jetzt über das versteckte Formular
       setStep(QUESTIONS.length + 1);
     } else setStep(nextUnanswered + 1);
   };
@@ -354,6 +342,19 @@ export default function ReadinessCheck() {
             </div>
           )}
         </div>
+
+        <form ref={formRef} style={{ display: "none" }}>
+          <input type="text" name="name" value={name} readOnly />
+          <input type="email" name="email" value={email} readOnly />
+          <input
+            type="text"
+            name="answers"
+            value={answers.join(", ")}
+            readOnly
+          />
+          <input type="text" name="score" value={score} readOnly />
+          <input type="text" name="persona" value={personaKey} readOnly />
+        </form>
       </main>
 
       <Footer className="w-full p-4 bg-gray-50 text-left" />
