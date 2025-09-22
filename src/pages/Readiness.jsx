@@ -100,9 +100,6 @@ const PERSONA_IMAGES = {
 };
 
 export default function ReadinessCheck() {
-  const [loading, setLoading] = useState(true);
-  const [pageContent, setPageContent] = useState(null);
-
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -174,8 +171,6 @@ export default function ReadinessCheck() {
     setSavedId(null);
   };
 
-  if (loading) return <p>Lädt...</p>;
-
   return (
     <div className="readiness-container flex flex-col min-h-screen">
       <main className="readiness-main flex-1 p-6 overflow-auto">
@@ -186,8 +181,8 @@ export default function ReadinessCheck() {
               KI Readiness Quick Check
             </h1>
             <p className="readiness-sub !mt-2">
-              {pageContent?.introText ||
-                "3–5 Minuten. Ergebnis mit Profil und Maßnahmen. EU AI Act Nähe sichtbar."}
+              3–5 Minuten. Ergebnis mit Profil und Maßnahmen. EU AI Act Nähe
+              sichtbar.
             </p>
           </div>
         </header>
@@ -225,10 +220,12 @@ export default function ReadinessCheck() {
             </div>
 
             <div className="ds-gvo-text">
-              Wir verwenden Ihre Angaben ausschließlich, um Ihnen das Ergebnis
-              des KI Readiness Quick Checks per E-Mail zuzusenden.
-              Rechtsgrundlage: Art.6(1)(b) DSGVO. Weitere Informationen finden
-              Sie in unserer <a href="/datenschutz">Datenschutzerklärung</a>.
+              <p>
+                Wir verwenden Ihre Angaben ausschließlich, um Ihnen das Ergebnis
+                des KI Readiness Quick Checks per E-Mail zuzusenden.
+                Rechtsgrundlage: Art.6(1)(b) DSGVO. Weitere Informationen finden
+                Sie in unserer <a href="/datenschutz">Datenschutzerklärung</a>.
+              </p>
             </div>
 
             <div style={{ marginTop: 12 }}>
