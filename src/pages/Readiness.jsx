@@ -138,7 +138,7 @@ export default function ReadinessCheck() {
 
       const result = await emailjs.send(
         "service_ryrxjqh",
-        "service_i06rsus",
+        "template_5wgvfth",
         templateParams,
         "L2ByIeyAeTxtPrEl-"
       );
