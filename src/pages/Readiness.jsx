@@ -186,13 +186,13 @@ export default function ReadinessCheck() {
   return (
     <div className="readiness-container flex flex-col min-h-screen">
       <main className="readiness-main flex-1 p-6 overflow-auto">
-        <header className="readiness-header">
-          <img src="/images/Logo.png" alt="Logo" style={{ height: 40 }} />
+        <header className="readiness-header flex gap-4">
+          <img src="/images/Logo.png" alt="Logo" className="h-10 self-start" />
           <div>
-            <h1 className="text-black text-4xl md:text-5xl font-semibold">
+            <h1 className="text-black text-4xl md:text-5xl font-semibold m-0">
               KI Readiness Quick Check
             </h1>
-            <p className="readiness-sub !mt-6">
+            <p className="readiness-sub !mt-2">
               {pageContent?.introText ||
                 "3–5 Minuten. Ergebnis mit Profil und Maßnahmen. EU AI Act Nähe sichtbar."}
             </p>
