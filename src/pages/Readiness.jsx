@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-import client from "../sanityClient";
 import Footer from "../components/Footer";
 import "../styles/Readiness.css";
 
@@ -125,23 +124,18 @@ export default function ReadinessCheck() {
 
   const persona = ARCHETYPES[personaKey];
 
-  async function saveSubmissionToSanity(payload) {
+  async function saveSubmissionToCsv(payload) {
     setSaving(true);
     try {
-      const res = await fetch("/.netlify/functions/saveReadiness", {
+      const res = await fetch("/api/saveReadinessCsv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
       const data = await res.json();
-      setSavedId(data.id);
-    } catch (e) {
-      console.error("Failed to save submission:", e);
+      console.log("Saved:", data);
+    } catch (err) {
+      console.error("Failed to save submission:", err);
     } finally {
       setSaving(false);
     }
@@ -153,7 +147,7 @@ export default function ReadinessCheck() {
     setAnswers(next);
     const nextUnanswered = next.findIndex((v) => v === null);
     if (nextUnanswered === -1) {
-      saveSubmissionToSanity({
+      saveSubmissionToCsv({
         name,
         email,
         answers: next,
