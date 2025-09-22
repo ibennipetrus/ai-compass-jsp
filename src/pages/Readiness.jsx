@@ -128,17 +128,13 @@ export default function ReadinessCheck() {
   async function saveSubmissionToSanity(payload) {
     setSaving(true);
     try {
-      const doc = {
-        _type: "readinessResult",
-        name: payload.name,
-        email: payload.email,
-        answers: payload.answers,
-        score: payload.score,
-        persona: payload.persona,
-        createdAt: new Date().toISOString(),
-      };
-      const res = await client.create(doc);
-      setSavedId(res?._id || null);
+      const res = await fetch("/api/saveReadiness", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      setSavedId(data.id);
     } catch (e) {
       console.error(e);
     } finally {

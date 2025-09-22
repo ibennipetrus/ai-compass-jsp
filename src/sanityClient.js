@@ -6,6 +6,7 @@ const client = createClient({
   dataset: "production",
   useCdn: false,
   apiVersion: "2025-08-12",
+  token: process.env.SANITY_WRITE_TOKEN, // Optional: Nur wenn du schreibende Operationen durchführst
 });
 
 const builder = imageUrlBuilder(client);
