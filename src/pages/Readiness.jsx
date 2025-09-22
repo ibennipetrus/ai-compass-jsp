@@ -158,14 +158,11 @@ export default function ReadinessCheck() {
       const next = [...prev];
       next[idx] = val;
 
-      // Jetzt direkt den nächsten Schritt berechnen mit aktualisierten next
+      // Update Step direkt
       const nextUnanswered = next.findIndex((v) => v === null);
-      if (nextUnanswered === -1) {
-        saveSubmission();
-        setStep(QUESTIONS.length + 1);
-      } else {
-        setStep(nextUnanswered + 1);
-      }
+      setStep(
+        nextUnanswered === -1 ? QUESTIONS.length + 1 : nextUnanswered + 1
+      );
 
       return next;
     });
@@ -376,7 +373,9 @@ export default function ReadinessCheck() {
           <input
             type="text"
             name="answers"
-            value={answers.map((a) => ANSWER_LABELS[a]).join(", ")}
+            value={answers
+              .map((a) => (a === null ? "-" : ANSWER_LABELS[a]))
+              .join(", ")}
             readOnly
           />
           <input type="text" name="score" value={score} readOnly />
