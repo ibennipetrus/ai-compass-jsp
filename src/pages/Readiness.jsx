@@ -107,58 +107,56 @@ export default function ReadinessCheck() {
   const [savedId, setSavedId] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const formRef = useRef(); // 🔹 Ref für unser verstecktes Formular
+  const formRef = useRef();
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const nameOk = name.trim().length > 1;
   const canStart = emailOk && nameOk;
   const answeredCount = answers.filter((v) => v !== null).length;
 
-  const ANSWER_LABELS = {
-    2: "Ja",
-    1: "Teilweise",
-    0: "Nein",
-    null: "-",
-  };
+  const ANSWER_LABELS = { 2: "Ja", 1: "Teilweise", 0: "Nein", null: "-" };
 
-  // 🔹 Berechne Score aus allen Antworten
   const { score, personaKey } = useMemo(() => {
     const v = answers.map((x) => x ?? 0);
-    const score = v.reduce((sum, a) => sum + a, 0); // alle Antworten summieren
+    const totalScore = v.reduce((sum, a) => sum + a, 0);
     const Y = v[4] + v[5] + v[6];
     let archetype = "Explorer";
-    if (score >= 6 && Y >= 4) archetype = "Champion";
-    else if (score >= 6) archetype = "Architekt";
+    if (totalScore >= 6 && Y >= 4) archetype = "Champion";
+    else if (totalScore >= 6) archetype = "Architekt";
     else if (Y >= 4) archetype = "Sprinter";
-    return { score, personaKey: archetype };
+    return { score: totalScore, personaKey: archetype };
   }, [answers]);
 
   const persona = ARCHETYPES[personaKey];
 
-  async function saveSubmission() {
+  async function saveSubmission(
+    finalAnswers = answers,
+    finalScore = score,
+    finalPersona = personaKey
+  ) {
     setSaving(true);
     try {
-      // 🔹 Vor dem Senden das Formular updaten
       if (formRef.current) {
         const answerInput = formRef.current.querySelector(
           'input[name="answers"]'
         );
         const scoreInput = formRef.current.querySelector('input[name="score"]');
-        if (answerInput) {
-          answerInput.value = answers
-            .map((a) => (a !== null ? ANSWER_LABELS[a] : "-"))
+        const personaInput = formRef.current.querySelector(
+          'input[name="persona"]'
+        );
+        if (answerInput)
+          answerInput.value = finalAnswers
+            .map((a) => ANSWER_LABELS[a])
             .join(", ");
-        }
-        if (scoreInput) {
-          scoreInput.value = score; // hier den korrekten Score setzen
-        }
+        if (scoreInput) scoreInput.value = finalScore;
+        if (personaInput) personaInput.value = finalPersona;
       }
 
       const result = await emailjs.sendForm(
         "service_ryrxjqh",
         "template_5wgvfth",
         formRef.current,
-        "L2ByIeyAeTxtPrEl-" // dein Public Key
+        "L2ByIeyAeTxtPrEl-"
       );
 
       console.log("Email sent ✅", result.text);
@@ -178,7 +176,17 @@ export default function ReadinessCheck() {
       const nextUnanswered = next.findIndex((v) => v === null);
       if (nextUnanswered === -1) {
         setStep(QUESTIONS.length + 1);
-        saveSubmission(); // Formular wird innerhalb saveSubmission aktualisiert
+
+        // finalScore und finalPersona basierend auf next berechnen
+        const finalV = next.map((x) => x ?? 0);
+        const finalScore = finalV.reduce((sum, a) => sum + a, 0);
+        const Y = finalV[4] + finalV[5] + finalV[6];
+        let finalPersona = "Explorer";
+        if (finalScore >= 6 && Y >= 4) finalPersona = "Champion";
+        else if (finalScore >= 6) finalPersona = "Architekt";
+        else if (Y >= 4) finalPersona = "Sprinter";
+
+        saveSubmission(next, finalScore, finalPersona);
       } else {
         setStep(nextUnanswered + 1);
       }
@@ -187,7 +195,6 @@ export default function ReadinessCheck() {
     });
   };
 
-  // 🔹 Reset-Funktion für „Neuer Check“
   const reset = () => {
     setStep(0);
     setAnswers(Array(QUESTIONS.length).fill(null));
