@@ -114,9 +114,17 @@ export default function ReadinessCheck() {
   const canStart = emailOk && nameOk;
   const answeredCount = answers.filter((v) => v !== null).length;
 
+  const ANSWER_LABELS = {
+    2: "Ja",
+    1: "Teilweise",
+    0: "Nein",
+    null: "-",
+  };
+
+  // 🔹 Berechne Score aus allen Antworten
   const { score, personaKey } = useMemo(() => {
     const v = answers.map((x) => x ?? 0);
-    const score = v[0] + v[1] + v[2] + v[3] + v[6];
+    const score = v.reduce((sum, a) => sum + a, 0); // alle Antworten summieren
     const Y = v[4] + v[5] + v[6];
     let archetype = "Explorer";
     if (score >= 6 && Y >= 4) archetype = "Champion";
@@ -127,16 +135,25 @@ export default function ReadinessCheck() {
 
   const persona = ARCHETYPES[personaKey];
 
-  const ANSWER_LABELS = {
-    2: "Ja",
-    1: "Teilweise",
-    0: "Nein",
-    null: "-",
-  };
-
   async function saveSubmission() {
     setSaving(true);
     try {
+      // 🔹 Vor dem Senden das Formular updaten
+      if (formRef.current) {
+        const answerInput = formRef.current.querySelector(
+          'input[name="answers"]'
+        );
+        const scoreInput = formRef.current.querySelector('input[name="score"]');
+        if (answerInput) {
+          answerInput.value = answers
+            .map((a) => (a !== null ? ANSWER_LABELS[a] : "-"))
+            .join(", ");
+        }
+        if (scoreInput) {
+          scoreInput.value = score; // hier den korrekten Score setzen
+        }
+      }
+
       const result = await emailjs.sendForm(
         "service_ryrxjqh",
         "template_5wgvfth",
@@ -160,17 +177,8 @@ export default function ReadinessCheck() {
 
       const nextUnanswered = next.findIndex((v) => v === null);
       if (nextUnanswered === -1) {
-        // alle Fragen beantwortet → Formular vor dem Senden updaten
-        if (formRef.current) {
-          const answerInput = formRef.current.querySelector(
-            'input[name="answers"]'
-          );
-          if (answerInput) {
-            answerInput.value = next.map((a) => ANSWER_LABELS[a]).join(", ");
-          }
-        }
         setStep(QUESTIONS.length + 1);
-        saveSubmission();
+        saveSubmission(); // Formular wird innerhalb saveSubmission aktualisiert
       } else {
         setStep(nextUnanswered + 1);
       }
@@ -187,18 +195,6 @@ export default function ReadinessCheck() {
     setEmail("");
     setSavedId(null);
   };
-
-  // 🔹 useEffect für synchronisierte Labels im versteckten Formular
-  useEffect(() => {
-    if (formRef.current) {
-      const answerInput = formRef.current.querySelector(
-        'input[name="answers"]'
-      );
-      if (answerInput) {
-        answerInput.value = answers.map((a) => ANSWER_LABELS[a]).join(", ");
-      }
-    }
-  }, [answers]);
 
   return (
     <div className="readiness-container flex flex-col min-h-screen">
