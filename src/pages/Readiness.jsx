@@ -158,11 +158,14 @@ export default function ReadinessCheck() {
       const next = [...prev];
       next[idx] = val;
 
-      // Update Step direkt
       const nextUnanswered = next.findIndex((v) => v === null);
-      setStep(
-        nextUnanswered === -1 ? QUESTIONS.length + 1 : nextUnanswered + 1
-      );
+      if (nextUnanswered === -1) {
+        // alle Fragen beantwortet → speichern
+        setStep(QUESTIONS.length + 1);
+        saveSubmission();
+      } else {
+        setStep(nextUnanswered + 1);
+      }
 
       return next;
     });
