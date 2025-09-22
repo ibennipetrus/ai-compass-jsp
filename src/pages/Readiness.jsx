@@ -160,7 +160,15 @@ export default function ReadinessCheck() {
 
       const nextUnanswered = next.findIndex((v) => v === null);
       if (nextUnanswered === -1) {
-        // alle Fragen beantwortet → speichern
+        // alle Fragen beantwortet → Formular vor dem Senden updaten
+        if (formRef.current) {
+          const answerInput = formRef.current.querySelector(
+            'input[name="answers"]'
+          );
+          if (answerInput) {
+            answerInput.value = next.map((a) => ANSWER_LABELS[a]).join(", ");
+          }
+        }
         setStep(QUESTIONS.length + 1);
         saveSubmission();
       } else {
