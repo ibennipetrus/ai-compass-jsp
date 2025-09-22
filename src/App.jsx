@@ -7,6 +7,7 @@ import Whitepaper from "./pages/whitepaper";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import ScrollToTop from "./components/ScrollToTop";
+import Readiness from "./pages/Readiness";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/whitepaper" element={<Whitepaper />} />
         <Route path="/impressum" element={<Impressum />} />
         <Route path="/datenschutz" element={<Datenschutz />} />
+        <Route path="/readiness" element={<Readiness />} />
       </Routes>
     </>
   );
