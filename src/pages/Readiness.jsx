@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import Footer from "../components/Footer";
 import "../styles/Readiness.css";
 import emailjs from "@emailjs/browser";
