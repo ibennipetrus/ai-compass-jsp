@@ -99,6 +99,13 @@ const PERSONA_IMAGES = {
   Champion: "/images/Champion.png",
 };
 
+const ANSWER_LABELS = {
+  2: "Ja",
+  1: "Teilweise",
+  0: "Nein",
+  null: "-",
+};
+
 export default function ReadinessCheck() {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
@@ -349,7 +356,7 @@ export default function ReadinessCheck() {
           <input
             type="text"
             name="answers"
-            value={answers.join(", ")}
+            value={answers.map((a) => ANSWER_LABELS[a]).join(", ")}
             readOnly
           />
           <input type="text" name="score" value={score} readOnly />
