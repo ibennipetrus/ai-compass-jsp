@@ -1,17 +1,21 @@
-import client from "@sanity/client";
+import sanityClient from "@sanity/client";
 
-const sanityClient = client({
-  projectId: "5z6b0ok7",
+const client = sanityClient({
+  projectId: "5z6b0ok7", // dein Sanity Project ID
   dataset: "production",
-  useCdn: false,
   apiVersion: "2025-08-12",
-  token: process.env.SANITY_WRITE_TOKEN,
+  useCdn: false,
+  token: process.env.SANITY_WRITE_TOKEN, // nur hier serverseitig!
 });
 
 export async function handler(event, context) {
-  const body = JSON.parse(event.body);
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
 
   try {
+    const body = JSON.parse(event.body);
+
     const doc = {
       _type: "readinessResult",
       name: body.name,
@@ -22,13 +26,14 @@ export async function handler(event, context) {
       createdAt: new Date().toISOString(),
     };
 
-    const result = await sanityClient.create(doc);
+    const result = await client.create(doc);
+
     return {
       statusCode: 200,
       body: JSON.stringify({ id: result._id }),
     };
   } catch (err) {
-    console.error(err);
+    console.error("Function error:", err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Failed to save" }),

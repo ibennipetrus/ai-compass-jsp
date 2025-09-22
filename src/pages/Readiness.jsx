@@ -133,10 +133,15 @@ export default function ReadinessCheck() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const data = await res.json();
       setSavedId(data.id);
     } catch (e) {
-      console.error(e);
+      console.error("Failed to save submission:", e);
     } finally {
       setSaving(false);
     }
