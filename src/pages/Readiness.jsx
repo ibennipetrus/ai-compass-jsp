@@ -235,14 +235,7 @@ export default function ReadinessCheck() {
               Wir verwenden Ihre Angaben ausschließlich, um Ihnen das Ergebnis
               des KI Readiness Quick Checks per E-Mail zuzusenden.
               Rechtsgrundlage: Art.6(1)(b) DSGVO. Weitere Informationen finden
-              Sie in unserer{" "}
-              <a
-                href="https://confias-ki-kompass.de/readiness/datenschutz"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Datenschutzerklärung
-              </a>
+              Sie in unserer <Link to="/datenschutz">Datenschutzerklärung</Link>
               .
             </div>
 
