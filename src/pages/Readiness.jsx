@@ -156,7 +156,7 @@ export default function ReadinessCheck() {
         "service_ryrxjqh",
         "template_5wgvfth",
         formRef.current,
-        "L2ByIeyAeTxtPrEl-"
+        "5bBaqVxuV7LC_fi4b"
       );
 
       console.log("Email sent ✅", result.text);
