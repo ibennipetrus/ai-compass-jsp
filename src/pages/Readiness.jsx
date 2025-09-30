@@ -118,13 +118,19 @@ export default function ReadinessCheck() {
 
   const { score, personaKey } = useMemo(() => {
     const v = answers.map((x) => x ?? 0);
-    const totalScore = v.reduce((sum, a) => sum + a, 0);
+
+    // X = Summe aus F1–F4 und F7 (max. 10 Punkte)
+    const X = v[0] + v[1] + v[2] + v[3] + v[6];
+
+    // Y = Summe aus F5–F7 (für Archetypen-Logik)
     const Y = v[4] + v[5] + v[6];
+
     let archetype = "Explorer";
-    if (totalScore >= 6 && Y >= 4) archetype = "Champion";
-    else if (totalScore >= 6) archetype = "Architekt";
+    if (X >= 6 && Y >= 4) archetype = "Champion";
+    else if (X >= 6) archetype = "Architekt";
     else if (Y >= 4) archetype = "Sprinter";
-    return { score: totalScore, personaKey: archetype };
+
+    return { score: X, personaKey: archetype };
   }, [answers]);
 
   const persona = ARCHETYPES[personaKey];
@@ -179,14 +185,15 @@ export default function ReadinessCheck() {
 
         // finalScore und finalPersona basierend auf next berechnen
         const finalV = next.map((x) => x ?? 0);
-        const finalScore = finalV.reduce((sum, a) => sum + a, 0);
+        const X = finalV[0] + finalV[1] + finalV[2] + finalV[3] + finalV[6];
         const Y = finalV[4] + finalV[5] + finalV[6];
+
         let finalPersona = "Explorer";
-        if (finalScore >= 6 && Y >= 4) finalPersona = "Champion";
-        else if (finalScore >= 6) finalPersona = "Architekt";
+        if (X >= 6 && Y >= 4) finalPersona = "Champion";
+        else if (X >= 6) finalPersona = "Architekt";
         else if (Y >= 4) finalPersona = "Sprinter";
 
-        saveSubmission(next, finalScore, finalPersona);
+        saveSubmission(next, X, finalPersona);
       } else {
         setStep(nextUnanswered + 1);
       }
