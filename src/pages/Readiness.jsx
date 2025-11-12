@@ -220,8 +220,7 @@ export default function ReadinessCheck() {
               KI Readiness Quick Check
             </h1>
             <p className="readiness-sub !mt-2">
-              3–5 Minuten. Ergebnis mit Profil und Maßnahmen. EU AI Act Nähe
-              sichtbar.
+              3–5 Minuten. Ergebnis mit Profil und Maßnahmen.
             </p>
           </div>
         </header>

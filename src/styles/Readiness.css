@@ -96,7 +96,7 @@
   border-color: #d94a3a;
 }
 .btn-primary {
-  background: #1ea37a !important;
+  background: #dbff00 !important;
   color: #fff;
   font-weight: 700;
   padding: 12px 18px;
@@ -106,7 +106,7 @@
   transition: filter 0.15s;
 }
 .btn-primary:disabled {
-  opacity: 0.45;
+  background: #bbe2fd !important;
   cursor: not-allowed;
 }
 .btn-primary:hover:not(:disabled) {
