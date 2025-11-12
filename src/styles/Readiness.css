@@ -59,10 +59,10 @@
 }
 
 .opt-btn[data-active="true"] {
-  background: #5ec2a3; /* var(--brand) */
+  background: #a2bb00; /* var(--brand) */
   color: #0f241e; /* var(--brand-ink) */
   border-color: #5ec2a3;
-  box-shadow: 0 0 0 2px rgba(94, 194, 163, 0.45) inset;
+  box-shadow: 0 0 0 3px rgba(219, 255, 0, 0.35) inset;
 }
 
 .muted {
